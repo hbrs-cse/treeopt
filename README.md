@@ -1,13 +1,12 @@
 # treeopt
 
-A python module for simulation-based optimization
+[![Documentation Status](https://readthedocs.org/projects/treeopt/badge/?version=latest)](https://treeopt.readthedocs.io/en/latest/?badge=latest)
+
+A python module for simulation-based optimization.
 
 ## Project Features
 
-* [treeopt](http://TREEOPT.readthedocs.io/)
-* a starter [Click](http://click.pocoo.org/5/) command-line application
-* automated unit tests you can run with [pytest](https://docs.pytest.org/en/latest/)
-* a [Sphinx](http://www.sphinx-doc.org/en/master/) documentation project
+ - To Do
 
 ## Getting Started
 
@@ -19,8 +18,7 @@ user of the library.
 
 If you're going to be working in the code (rather than just using the library), you'll want a few utilities.
 
-* [GNU Make](https://www.gnu.org/software/make/)
-* [Pandoc](https://pandoc.org/)
+- [GNU Make](https://www.gnu.org/software/make/)
 
 ## Resources
 
@@ -35,13 +33,14 @@ Below are some handy resource links.
 
 ## Authors
 
-* **Jan Kleinert** - *Initial work* - [github](https://github.com/joergbrech)
+- **Alexander Busch** - *Author* - [github]()
+- **Jan Kleinert** - *Initial work* - [github](https://github.com/joergbrech)
 
-See also the list of [contributors](https://github.com/joergbrech/treeopt/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/hbrs-cse/treeopt/graphs/contributors) who participated in this project.
 
-## LicenseMIT License
+## License: MIT License
 
-Copyright (c) joergbrech
+Copyright (c) Jan Kleinert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
