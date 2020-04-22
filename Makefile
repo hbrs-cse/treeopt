@@ -29,7 +29,7 @@ quicktest:
 	py.test --cov-report term --cov=$(PROJ_SLUG) tests/
 
 coverage: lint
-	py.test --cov-report html --cov=$(PROJ_SLUG) tests/
+	py.test --cov-report xml --cov=$(PROJ_SLUG) tests/
 
 docs: coverage
 	mkdir -p docs/source/_static
