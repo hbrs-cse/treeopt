@@ -1,5 +1,8 @@
 # treeopt
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![Tests passing](https://github.com/hbrs-cse/treeopt/workflows/Continuous%20Integration/badge.svg)
+[![codecov](https://codecov.io/gh/hbrs-cse/treeopt/branch/master/graph/badge.svg)](https://codecov.io/gh/hbrs-cse/treeopt)
 [![Documentation Status](https://readthedocs.org/projects/treeopt/badge/?version=latest)](https://treeopt.readthedocs.io/en/latest/?badge=latest)
 
 A python module for simulation-based optimization.
