@@ -8,6 +8,7 @@ Development
    :caption: Contents:
 
    development/getting_started
+   development/contributing
    development/make
    development/publishing
    development/docs

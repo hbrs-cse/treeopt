@@ -15,7 +15,7 @@ A python module for simulation-based optimization.
 
 The project's documentation contains a section to help you
 [get started](https://TREEOPT.readthedocs.io/en/latest/getting_started.html) as a developer or
-user of the library.
+user of the library. Read the [Contribution Guide](https://TREEOPT.readthedocs.io/en/latest/development/contributing.html) if you would like to contribute to the project.
 
 ## Resources
 
