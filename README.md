@@ -1,7 +1,7 @@
 # treeopt
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-![Tests passing](https://github.com/hbrs-cse/treeopt/workflows/Continuous%20Integration/badge.svg)
+![Continuous Integration](https://github.com/hbrs-cse/treeopt/workflows/Continuous%20Integration/badge.svg)
 [![codecov](https://codecov.io/gh/hbrs-cse/treeopt/branch/master/graph/badge.svg)](https://codecov.io/gh/hbrs-cse/treeopt)
 [![Documentation Status](https://readthedocs.org/projects/treeopt/badge/?version=latest)](https://treeopt.readthedocs.io/en/latest/?badge=latest)
 
@@ -16,12 +16,6 @@ A python module for simulation-based optimization.
 The project's documentation contains a section to help you
 [get started](https://TREEOPT.readthedocs.io/en/latest/getting_started.html) as a developer or
 user of the library.
-
-## Development Prerequisites
-
-If you're going to be working in the code (rather than just using the library), you'll want a few utilities.
-
-- [GNU Make](https://www.gnu.org/software/make/)
 
 ## Resources
 
