@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-A python module for simulation-based optimization
+A python module for simulation-based optimization.
 
 .. currentmodule:: treeopt
 .. moduleauthor:: Jan Kleinert <jan.kleinert@dlr.de>
