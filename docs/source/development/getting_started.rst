@@ -15,12 +15,12 @@ Get the Source
 ==============
 
 The source code for the `TREEOPT` project lives at
-`github <https://github.com/joergbrech/TREEOPT>`_.  
+`github <https://github.com/hbrs-cse/TREEOPT>`_.  
 You can use `git clone` to get it.
 
 .. code-block:: bash
 
-   git clone https://github.com/patdaburu/bnrml
+   git clone https://github.com/hbrs-cse/TREEOPT
 
 Create the Virtual Environment
 ==============================
