@@ -3,7 +3,7 @@
 ![Continuous Integration](https://github.com/hbrs-cse/treeopt/workflows/Continuous%20Integration/badge.svg)
 [![codecov](https://codecov.io/gh/hbrs-cse/treeopt/branch/master/graph/badge.svg)](https://codecov.io/gh/hbrs-cse/treeopt)
 [![Documentation Status](https://readthedocs.org/projects/treeopt/badge/?version=latest)](https://treeopt.readthedocs.io/en/latest/?badge=latest)
-![GitHub](https://img.shields.io/github/license/hbrs-cse/TREEOPT?style=plastic)
+![GitHub](https://img.shields.io/github/license/hbrs-cse/TREEOPT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Updates](https://pyup.io/repos/github/hbrs-cse/treeopt/shield.svg)](https://pyup.io/repos/github/hbrs-cse/treeopt/)
 
