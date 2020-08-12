@@ -1,6 +1,5 @@
-from treeOpt import TreeOpt
-import modules.benchmark as benchmark
-
+from treeopt.treeOpt import TreeOpt
+import benchmark
 import numpy as np
 
 # Generates a TreeOpt object

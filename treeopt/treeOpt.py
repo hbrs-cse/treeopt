@@ -1,11 +1,3 @@
-"""
-A python module for simulation-based optimization.
-
-.. currentmodule:: treeOpt
-.. moduleauthor:: Alexander Busch
-
-"""
-
 import numpy as np
 import os
 
@@ -13,12 +5,14 @@ import os
 import traceback
 import logging
 
+from pathlib import Path
+
 # Import of treeopt submodules
-import modules.sampling as sampling
-import modules.simulate as simulate
-import modules.optimize as optimize
-import modules.metamodell as metamodell
-import modules.visualize as visualize
+import treeopt.sampling as sampling
+import treeopt.simulate as simulate
+import treeopt.optimize as optimize
+import treeopt.metamodell as metamodell
+import treeopt.visualize as visualize
 
 
 class TreeOpt:
@@ -78,6 +72,7 @@ class TreeOpt:
 
         """
 
+        Path(os.getcwd() + "/treeOptData").mkdir(parents=True, exist_ok=True)
         path = os.path.join(os.getcwd() + "/treeOptData", filename + ".csv")
         np.savetxt(path, npArray, delimiter=",")
 
@@ -218,19 +213,20 @@ class TreeOpt:
         :rtype: Numpy array
 
         """
-
-        # if self.simulateMethod == simulate.simulate_benchmark_function:
-        #     return self.simulateMethod(self.benchmarkingProblem, x)
-        # else:
-        #     print("Fehler")
-
         try:
             if self.simulateMethod == simulate.simulate_benchmark_function:
                 return self.simulateMethod(self.benchmarkingProblem, x)
-            # TODO if the problem is not a benchmarking problem, a simulation
-            # is to be started here.
-        except:
+            if self.simulateMethod == simulate.simulateExternalProgramm:
+                return self.simulateMethod(
+                    self.inputFile,
+                    self.outputFile,
+                    self.simFile,
+                    self.program,
+                    x,
+                )
+        except TypeError:
             logging.error(traceback.format_exc())
+            print("Check your parameters")
 
     def start_optimization(self):
         """
@@ -277,5 +273,5 @@ class TreeOpt:
             )
             print("bester Punkt:", self.current_best_point)
 
-        vis = visualize.visualize(self)
+        vis = visualize.Visualize(self)
         vis.plot()

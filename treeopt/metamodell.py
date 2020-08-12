@@ -1,11 +1,3 @@
-"""
-A python module to provide different algorithms to calculate a metamodell.
-
-.. currentmodule:: metaodell
-.. moduleauthor:: Alexander Busch
-
-"""
-
 import smt.surrogate_models as smt
 
 

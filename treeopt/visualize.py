@@ -4,7 +4,7 @@ import matplotlib as mpl
 import numpy as np
 
 
-class visualize:
+class Visualize:
     def __init__(self, optimizer):
         """
         Initializes a visiualize Class

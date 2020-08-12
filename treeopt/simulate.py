@@ -18,7 +18,7 @@ def simulate_benchmark_function(fun, x):
     return fun(x)
 
 
-def writeData(filePath, Data):
+def write_data(filePath, Data):
     """
     Writes the Data into a File
     :param filePath: Path of the File where Data is to be written.
@@ -34,7 +34,7 @@ def writeData(filePath, Data):
     np.savetxt(filePath, Data)
 
 
-def readData(filePath):
+def read_data(filePath):
     """
     Returns what is stored in the file at :filePath
     :param filePath: Path of the File to be read
@@ -49,7 +49,7 @@ def readData(filePath):
     return data
 
 
-def startProgramm(programm, simulationFile):
+def start_programm(programm, simulationFile):
     """
     Starts a Programm with a File to be executed
     :param programm: Name of the programm
@@ -64,7 +64,7 @@ def startProgramm(programm, simulationFile):
     subprocess.call([programm, "< " + simulationFile])
 
 
-def simulateExternalProgramm(inputFile, outputFile, simFile, program, x):
+def simulate_external_programm(inputFile, outputFile, simFile, program, x):
     """
     Writes Parameters into the inputFile, starts the Simulation and returns the
     result wich got written into the outputFile
@@ -84,9 +84,9 @@ def simulateExternalProgramm(inputFile, outputFile, simFile, program, x):
 
     """
 
-    writeData(inputFile, x)
+    write_data(inputFile, x)
     print("Started Simulation")
-    startProgramm(program, simFile)
-    y = readData(outputFile)
+    start_programm(program, simFile)
+    y = read_data(outputFile)
     print("\nSimulation Completed")
     return y

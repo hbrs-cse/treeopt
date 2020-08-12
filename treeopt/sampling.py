@@ -18,7 +18,7 @@ def latin_hypercube(limits, ndoe):
     return x
 
 
-def full_faktorial(limits, ndoe):
+def full_factorial(limits, ndoe):
     """
     Function to define the experiment by using full factorial grid
     :param limits: numpy array representing the limit of the desingnspace
