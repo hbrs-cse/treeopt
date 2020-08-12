@@ -1,3 +1,6 @@
+# Safed Datapoints in tests
+tests/treeOptData/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
