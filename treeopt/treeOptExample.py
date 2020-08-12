@@ -1,5 +1,5 @@
 from treeOpt import TreeOpt
-from treeOpt import benchmark
+import modules.benchmark as benchmark
 
 import numpy as np
 

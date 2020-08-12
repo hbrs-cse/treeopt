@@ -1,3 +1,11 @@
+"""
+A python module for simulation-based optimization.
+
+.. currentmodule:: treeOpt
+.. moduleauthor:: Alexander Busch
+
+"""
+
 import numpy as np
 import os
 
@@ -9,8 +17,6 @@ import logging
 import modules.sampling as sampling
 import modules.simulate as simulate
 import modules.optimize as optimize
-import modules.benchmark as benchmark
-#import tests.benchmark as benchmark
 import modules.metamodell as metamodell
 import modules.visualize as visualize
 
