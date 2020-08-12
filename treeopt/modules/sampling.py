@@ -1,37 +1,53 @@
 import smt.sampling_methods as smtSam
 
-def latinHypercube(limits, ndoe):
-    """Function to approach a designspace by using a latin hypercube algorithm
-    INPUT:
-        limits: numpy array representing the limit of the desingnspace
-        ndoe: number of samplingpoints to be generated in the designspace
-    OUTPUT:
-        Numpy-array containg the sampled points
+
+def latin_hypercube(limits, ndoe):
     """
-    sampling = smtSam.LHS(xlimits = limits, criterion='m')
-    x = sampling(ndoe)
-    return(x)
-    
-def fullFaktorial(limits, ndoe):
-    """Function to approach a designspace by using full factorial grid
-    INPUT:
-        limits: numpy array representing the limit of the desingnspace
-        ndoe: number of samplingpoints to be generated in the designspace
-    OUTPUT:
-        Numpy-array containg the sampled points
+    Function to define the experiment by using a latin hypercube algorithm
+    :param limits: Numpy array representing the limit of the desingnspace
+    :type limits: Numpy array
+    :param ndoe: Number of points to be sampled in the designspace
+    :type ndoe: Integer
+    :return: Numpy array containg the sampled points
+    :rtype: Numpy array
+
     """
-    sampling = smtSam.FullFactorial(xlimits = limits)
+
+    sampling = smtSam.LHS(xlimits=limits, criterion="m")
     x = sampling(ndoe)
-    return(x)
-    
-def Random(limits, ndoe):
-    """Function to approach a designspace randomly picking points in the designspace
-    INPUT:
-        limits: numpy array representing the limit of the desingnspace
-        ndoe: number of samplingpoints to be generated in the designspace
-    OUTPUT:
-        Numpy-array containg the sampled points
+    return x
+
+
+def full_faktorial(limits, ndoe):
     """
-    sampling = smtSam.Random(xlimits = limits)
+    Function to define the experiment by using full factorial grid
+    :param limits: numpy array representing the limit of the desingnspace
+    :type limits: Numpy array
+    :param ndoe: Number of points to be sampled in the designspace
+    :type ndoe: Integer
+    :return: Numpy-array containg the sampled points
+    :rtype: Numpy array
+
+    """
+
+    sampling = smtSam.FullFactorial(xlimits=limits)
     x = sampling(ndoe)
-    return(x)        
+    return x
+
+
+def random(limits, ndoe):
+    """
+    Function define the experiment by randomly picking points in the
+    designspace
+    :param limits: Numpy array representing the limit of the desingnspace
+    :type limits: Numpy array
+    :param ndoe: Number of points to be sampled in the designspace
+    :type ndoe: Integer
+    :return: Numpy-array containg the sampled points
+    :rtype: Numpy array
+
+    """
+
+    sampling = smtSam.Random(xlimits=limits)
+    x = sampling(ndoe)
+    return x
