@@ -10,6 +10,7 @@ import modules.sampling as sampling
 import modules.simulate as simulate
 import modules.optimize as optimize
 import modules.benchmark as benchmark
+#import tests.benchmark as benchmark
 import modules.metamodell as metamodell
 import modules.visualize as visualize
 
