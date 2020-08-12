@@ -32,6 +32,26 @@ Now implement your modifications.
 The source code of the library is contained in the subdirectory ``treeopt``.
 Any new feature should be thoroughly tested, so please add unit tests in the ``tests`` subdirectory.
 
+Autoformat your code
+--------------------
+
+Your code stype should conform to the PEP. We use flake8 to check the code at every commit and decline 
+contributions that are not conform to the standard. Using a combination of the tools ``pre-commit``, 
+``black`` and ``flake8`` you can automatically re-format and check your code with every commit. To 
+activate this optional feature, install pre-commit
+
+.. code-block:: bash
+
+   pip install pre-commit
+   
+and install the pre-configured commit-hook for this repository. In the root directory of this repo, type
+
+.. code-block:: bash
+
+   pre-commit install
+   
+That's all there is to it!
+
 Commit your changes
 -------------------
 
