@@ -50,6 +50,10 @@ setup(
     install_requires=[
         # Include dependencies here
         'click>=7.0,<8'
+        'numpy>=1.8.5',
+        'smt>=0.5.3',
+        'scipy>=1.5.0',
+        'matplotlib>=3.2.2'
     ],
     entry_points="""
     [console_scripts]
