@@ -2,7 +2,7 @@ import numpy as np
 import subprocess
 
 
-def simulate_benchmark_function(fun, x):
+def execute_python_function(fun, x, args):
     """
     Returns the function value of a benchmarking function
     :param fun: Python object representing the benchmarking function

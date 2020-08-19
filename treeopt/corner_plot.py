@@ -198,7 +198,7 @@ class Visualize:
 
         if hasattr(self.opti_data, "name"):
             fig.suptitle(self.opti_data.name)
-
+        
         plt.show()
 
     def plot_metamodell_2vars(self):
@@ -295,52 +295,25 @@ class Visualize:
             fig.suptitle(self.opti_data.name)
 
         plt.show()
-
+    
     def plot_metamodell_nvars(self):
-        """
-        Generates a Corner Plot of the diffenent axes of the metamodell
-        :return: Nothing
-        :rtype: None
-
-        """
-
         dim = self.opti_data.x.shape[1]
-
+        
         fig, axes = plt.subplots(nrows=dim, ncols=dim)
-
+        
         x_data = self.opti_data.x
-
-        x_step = np.zeros([self.num_ele, x_data.shape[1]])
-        
-        for i in range(x_data.shape[1]):
-            x_step[:,i] = np.linspace(
-                    self.opti_data.limits[i, 0],
-                    self.opti_data.limits[i, 1],
-                    self.num_ele,
-                )
-            
-        XY = np.dstack(np.meshgrid(x_step))
-            
-        fun1Vars = self.opti_data.sm.predict_values(
-            XY.astype(np.float)
-        )
-        
-        print(fun1_Vars)
         
         images = []
+        
         for i in range(x_data.shape[1]):
-            for j in range(i + 1, x_data.shape[1]):
-                images.append(
-                    axes[j, i].scatter(
-                        x_data[:, i], x_data[:, j], c="b", marker="o"
-                    )
-                )
-
+            for j in range(i+1, x_data.shape[1]):
+                images.append(axes[j,i].scatter(x_data[:,i], x_data[:,j], c="b", marker = "o"))
+                
         if hasattr(self.opti_data, "name"):
             fig.suptitle(self.opti_data.name)
-
-        plt.show()
-
+        
+        plt.show()        
+                
     def plot(self):
         """
         Calls a individual plot function depending on the provided data
@@ -365,6 +338,6 @@ class Visualize:
             elif self.opti_data.x.shape[1] == 2:
                 self.plot_metamodell_2vars()
             else:
-                self.plot_metamodell_nvars()
+                print("Hier ist eine Höherdimensionale Funktion zu sehen")
         else:
-            raise KeyError("Wrong Keyword has been passed.")
+            print("Fehler")

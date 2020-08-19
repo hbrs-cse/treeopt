@@ -35,6 +35,7 @@ def krg(xt, yt):
 
     sm = smt.KRG(theta0=[1e-2])
     sm.set_training_values(xt, yt)
+    print(xt, yt)
     sm.train()
 
     return sm

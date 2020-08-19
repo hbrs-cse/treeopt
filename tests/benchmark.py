@@ -8,7 +8,6 @@ def tree_valley_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy array
-
     """
 
     y = -(
@@ -28,7 +27,6 @@ def four_humps_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy array
-
     """
 
     y = (1 - x[:, 0] / 2 + x[:, 0] ** 5 + x[:, 1] ** 3) * np.exp(
@@ -46,7 +44,6 @@ def himmelblaus_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy array
-
     """
 
     y = (x[:, 0] ** 2 + x[:, 1] - 11) ** 2 + (x[:, 0] + x[:, 1] ** 2 - 7) ** 2
@@ -63,9 +60,8 @@ def rotated_hyper_ellipsoid_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy Array
-
     """
-
+    x = np.atleast_2d(x)
     y = np.zeros(x.shape[0])
     for i in range(x.shape[1]):
         y = y + x[:, i] ** 2
@@ -80,7 +76,6 @@ def matyas_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy array
-
     """
 
     y = 0.26 * (x[:, 0] ** 2 + x[:, 1] ** 2) - 0.48 * x[:, 0] * x[:, 1]
@@ -97,7 +92,6 @@ def cross_in_tray_function(x):
     :type x: Numpy array
     :return: Function values of x
     :rtype: Numpy array
-
     """
 
     fact1 = np.sin(x[:, 0]) * np.sin(x[:, 1])
@@ -116,7 +110,6 @@ def SixHumpCamelFunction(x):
     :type x: Numpy array
     :return: function values of x
     :rtype: Numpy array
-
     """
 
     x1 = x[:, 0]
@@ -142,7 +135,6 @@ def michalewicz_function(x):
     Funktioniert nicht so wie es soll
     Quelle:
         http://www.sfu.ca/~ssurjano/michal.html
-
     """
 
     m = 10
@@ -160,7 +152,6 @@ def rastrigin_function(x):
     :type x: Numpy array
     :return: Function Values of x
     :rtype: Numpy array
-
     """
 
     dim = x.shape[1]

@@ -30,8 +30,9 @@ class TreeOpt:
         """
 
         self.samplingMethod = sampling.latin_hypercube
-        self.simulateMethod = simulate.simulate_benchmark_function
         self.smMethod = metamodell.krg
+        self.problem_args = None
+        self.sim_keyword = "extern"
 
     # Functions for Data management
     def append_x_data(self, xi):
@@ -143,38 +144,49 @@ class TreeOpt:
 
         self.limits = limits
 
-    def set_simulate_method(self, method):
+    def set_problem(self, problem):
         """
-        Sets the method, which should be used to start the Simulation
-        :param method: A keyword representing the method
-        the simulation String
-        :type method: Python function
-        :return: Nothing
-        :rtype: None
-
-        """
-        self.simKeyword = method
-        if self.simKeyword == "benchmarking":
-            self.simulateMethod = simulate.simulate_benchmark_function
-        elif self.simKeyword == "python":
-            self.simulateMethod = simulate.simulate_benchmark_function
-        elif self.simKeyword == "extern":
-            self.simulateMethod = simulate.simulateExternalProgramm
-        else:
-            print("Error")
-
-    def set_python_problem(self, problem):
-        """
-        Stores a Function, that represents a benchmarking problem
-        :param problem: Python function, which returns points of a responce
-        surface
+        Sets the problem of which an optimization is to be done. Arguments have
+        to be passed in the following way:
+            function(x, arg1, arg2, ..., argN), where x are the parameters
+            which are to be optimized and arg1 to argN are static Variables.
+        :param problem: A function that takes takes parameters and returnes the
+        system responce
         :type problem: Python function
         :return: Nothing
         :rtype: None
 
         """
+        self.problem = problem
 
-        self.benchmarkingProblem = problem
+    def set_problem_args(self, args):
+        """
+        Sets additional Arguments, which are to be passed with each call of the
+        problem function. Arguments have to be passed in the same order in
+        which the they are declared in the problem definition
+        :param args: Tuple containing the arguments
+        :type args: Tuple
+        :return: Nothing
+        :rtype: None
+
+        """
+
+        self.problem_args = args
+
+    def set_sim_keyword(self, keyword):
+        """
+        Adds a keyword to the Optimization Algorithm. When a MEtamodell is to
+        be visualized, the value of the keyword is checked and depending on the
+        keyword a different plot is generated
+        :param keyword: Keyword describing the problem-type (default "extern",
+        other alternative "benchmark")
+        :type keyword: String
+        :return: Nothing
+        :rtype: None
+
+        """
+
+        self.sim_keyword = keyword
 
     def set_sm_method(self, method):
         """
@@ -202,31 +214,11 @@ class TreeOpt:
 
         self.accuracyCriterion = method
 
-    # Starts one simulation run
-    def simulate(self, x):
-        """
-        Function that starts a Simulation and returns the resonce of the system
-        :param x: Numpy array representing a set of parameters to be written on
-        the simulation Input file
-        :type x: Numpy array
-        :return: Numpy array containing the system responce
-        :rtype: Numpy array
-
-        """
-        try:
-            if self.simulateMethod == simulate.simulate_benchmark_function:
-                return self.simulateMethod(self.benchmarkingProblem, x)
-            if self.simulateMethod == simulate.simulateExternalProgramm:
-                return self.simulateMethod(
-                    self.inputFile,
-                    self.outputFile,
-                    self.simFile,
-                    self.program,
-                    x,
-                )
-        except TypeError:
-            logging.error(traceback.format_exc())
-            print("Check your parameters")
+    def simulate_problem(self, x):
+        if self.problem_args == None:
+            return self.problem(x)
+        else:
+            return self.problem(x, self.problem_args)
 
     def start_optimization(self):
         """
@@ -238,10 +230,11 @@ class TreeOpt:
         """
 
         self.x = self.samplingMethod(self.limits, self.numDOE)
-        self.y = self.simulate(np.atleast_2d(self.x[0]))
 
+        self.y = self.simulate_problem(np.atleast_2d(self.x[0]))
         for xi in self.x[1:]:
-            self.append_y_data(self.simulate(np.atleast_2d(xi)))
+            print(self.simulate_problem(np.atleast_2d(xi)))
+            self.append_y_data(self.simulate_problem(np.atleast_2d(xi)))
 
         self.write_data(self.x, "DoeData")
         self.write_data(self.y, "DoeResponce")
@@ -258,7 +251,7 @@ class TreeOpt:
             self.nX = optimize.get_lowest_variance(self.sm, self.limits)
 
             self.append_x_data(self.nX)
-            self.append_y_data(self.simulate(np.atleast_2d(self.nX)))
+            self.append_y_data(self.simulate_problem(np.atleast_2d(self.nX)))
 
             self.write_data(self.x, "DoeData")
             self.write_data(self.y, "DoeResponce")
