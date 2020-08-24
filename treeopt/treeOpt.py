@@ -1,10 +1,6 @@
 import numpy as np
 import os
 
-# Experimental! imports to log errors
-import traceback
-import logging
-
 from pathlib import Path
 
 # Import of treeopt submodules
@@ -14,8 +10,136 @@ import treeopt.optimize as optimize
 import treeopt.metamodell as metamodell
 import treeopt.visualize as visualize
 
+import scipy.optimize as sk_optimize
 
-class TreeOpt:
+
+class least_squares:
+    """
+    Python class, that bundles all modules nessesary to do least-squares
+    optimization
+    """
+
+    def __init__(self):
+        """
+        Pre allocates variables with default values
+        :return: Nothing
+        :rtype: None
+
+        """
+        self.optimization_function_args = None
+        self.diff_step = 0.01
+        self.max_nfev = None
+
+    def set_least_squares_function(self, function):
+        """
+        Sets the problem of which an optimization is to be done. Arguments have
+        to be passed in the following way:
+            function(x, *args), where x are the parameters
+            which are to be optimized and *args are static Variables.
+        :param problem: A function that takes takes parameters and returnes the
+        system responce
+        :type problem: Python function
+        :return: Nothing
+        :rtype: None
+        """
+
+        self.optimization_function = function
+
+    def set_least_squares_function_args(self, args):
+        """
+        Sets additional Arguments, which are to be passed with each call of the
+        problem function. Arguments have to be passed in the same order in
+        which the they are declared in the problem definition
+        :param args: Tuple containing the arguments
+        :type args: Tuple
+        :return: Nothing
+        :rtype: None
+
+        """
+        self.optimization_function_args = args
+
+    def set_start_point(self, point):
+        """
+        Sets a point in the design space, in which represents the starting
+        point for the least squares optimization
+        :param point: Point in which the algorrithm is to start
+        :type point: Tuple
+        :return: Nothing
+        :rtype: None
+
+        """
+
+        self.start_point = point
+
+    def set_optimization_limits(self, limits):
+        """
+        Sets the search limits of each dimension of the design space
+        :param limits: Array containing the highest and lowest limits for each
+        dimension
+        :type limits: Numpy-Array
+        :return: Nothing
+        :rtype: None
+
+        """
+        self.limits = limits
+
+    def set_diff_step(self, value):
+        """
+        Sets the diff_step variable if a value other than the default is
+        desired
+        :param value: Diff_step value
+        :type value: Float
+        :return: Nothing
+        :rtype: None
+
+        """
+
+        self.diff_step = value
+
+    def set_max_nfev(self, max_nfev):
+        """
+        Sets a maximum number of function evaluations if a value other than the
+        default is desired
+        :param max_nfev: Maximum number of function evaluations
+        :type max_nfev: Integer
+        :return: Nothing
+        :rtype: None
+
+        """
+
+        self.max_nfev = max_nfev
+
+    def start_optimization(self):
+        """
+        Function that starts the previosly parameterized adaptive optimization
+        loop
+        :return: Nothing
+        :rtype: None
+
+        """
+        if self.optimization_function_args is None:
+            op = sk_optimize.least_squares(
+                self.optimization_function,
+                self.start_point,
+                bounds=self.limits,
+                diff_step=self.diff_step,
+                max_nfev=self.max_nfev,
+            )
+        else:
+            op = sk_optimize.least_squares(
+                self.optimization_function,
+                self.start_point,
+                bounds=self.limits,
+                args=self.optimization_function_args,
+                diff_step=self.diff_step,
+                max_nfev=self.max_nfev,
+            )
+
+        self.sim_res = op
+        return op
+
+
+class adaptive_metamodell:
     """
     Python class, that bundles all modules for nessesary for adaptive black box
     metamodelling
@@ -60,8 +184,7 @@ class TreeOpt:
         self.y = np.vstack([self.y, yi])
 
     def write_data(self, npArray, filename):
-        """sudo apt-get install pep8
-
+        """
         Function that writes a numpy Array into a file in the threeOptData
         direcory
         :param npArray: Array to be written onto the file
@@ -215,7 +338,7 @@ class TreeOpt:
         self.accuracyCriterion = method
 
     def simulate_problem(self, x):
-        if self.problem_args == None:
+        if self.problem_args is None:
             return self.problem(x)
         else:
             return self.problem(x, self.problem_args)

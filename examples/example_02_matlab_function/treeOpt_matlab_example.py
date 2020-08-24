@@ -1,7 +1,5 @@
-from treeopt.treeOpt import TreeOpt
+from treeopt.treeOpt import adaptive_metamodell
 from treeopt import simulate
-
-# import treeopt.simulate as simulate
 import numpy as np
 
 
@@ -18,7 +16,7 @@ def calc_matlab(x):
 
 
 # Generates a TreeOpt object
-opt = TreeOpt()
+opt = adaptive_metamodell()
 
 # Sets a name
 opt.set_name("TreeOpt-Matlab-Example")

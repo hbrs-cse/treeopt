@@ -1,4 +1,4 @@
-from treeopt.treeOpt import TreeOpt
+from treeopt.treeOpt import adaptive_metamodell
 import numpy as np
 
 def himmelblaus_function(x, *args):
@@ -17,7 +17,7 @@ def himmelblaus_function(x, *args):
     return y
 
 # Generates a TreeOpt object
-opt = TreeOpt()
+opt = adaptive_metamodell()
 
 # Sets a name
 opt.set_name("Benchmarking-problem")
