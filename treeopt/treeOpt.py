@@ -27,10 +27,12 @@ class least_squares:
 
         """
         self.optimization_function_args = None
+        self.optimization_function_kw_args = None
         self.diff_step = 0.01
         self.max_nfev = None
+        self.x_tol = 1e-8
 
-    def set_least_squares_function(self, function):
+    def set_problem(self, problem):
         """
         Sets the problem of which an optimization is to be done. Arguments have
         to be passed in the following way:
@@ -43,9 +45,9 @@ class least_squares:
         :rtype: None
         """
 
-        self.optimization_function = function
+        self.optimization_function = problem
 
-    def set_least_squares_function_args(self, args):
+    def set_problem_args(self, args):
         """
         Sets additional Arguments, which are to be passed with each call of the
         problem function. Arguments have to be passed in the same order in
@@ -57,6 +59,10 @@ class least_squares:
 
         """
         self.optimization_function_args = args
+
+    def set_problem_kw_args(self, args):
+
+        self.optimization_function_kw_args = args
 
     def set_start_point(self, point):
         """
@@ -71,7 +77,7 @@ class least_squares:
 
         self.start_point = point
 
-    def set_optimization_limits(self, limits):
+    def set_limits(self, limits):
         """
         Sets the search limits of each dimension of the design space
         :param limits: Array containing the highest and lowest limits for each
@@ -96,6 +102,9 @@ class least_squares:
 
         self.diff_step = value
 
+    def set_x_tol(self, value):
+        self.x_tol = value
+
     def set_max_nfev(self, max_nfev):
         """
         Sets a maximum number of function evaluations if a value other than the
@@ -117,15 +126,35 @@ class least_squares:
         :rtype: None
 
         """
-        if self.optimization_function_args is None:
+        if (
+            self.optimization_function_args is None
+            and self.optimization_function_kw_args is None
+        ):
             op = sk_optimize.least_squares(
                 self.optimization_function,
                 self.start_point,
                 bounds=self.limits,
                 diff_step=self.diff_step,
                 max_nfev=self.max_nfev,
+                xtol=self.x_tol,
             )
-        else:
+        elif (
+            self.optimization_function_args is None
+            and self.optimization_function_kw_args is not None
+        ):
+            op = sk_optimize.least_squares(
+                self.optimization_function,
+                self.start_point,
+                bounds=self.limits,
+                kwargs=self.optimization_function_kw_args,
+                diff_step=self.diff_step,
+                max_nfev=self.max_nfev,
+                xtol=self.x_tol,
+            )
+        elif (
+            self.optimization_function_args is not None
+            and self.optimization_function_kw_args is None
+        ):
             op = sk_optimize.least_squares(
                 self.optimization_function,
                 self.start_point,
@@ -133,6 +162,18 @@ class least_squares:
                 args=self.optimization_function_args,
                 diff_step=self.diff_step,
                 max_nfev=self.max_nfev,
+                xtol=self.x_tol,
+            )
+        else:
+            op = sk_optimize.least_squares(
+                self.optimization_function,
+                self.start_point,
+                bounds=self.limits,
+                args=self.optimization_function_args,
+                kwargs=self.optimization_function_kw_args,
+                diff_step=self.diff_step,
+                max_nfev=self.max_nfev,
+                xtol=self.x_tol,
             )
 
         self.sim_res = op
@@ -338,6 +379,17 @@ class adaptive_metamodell:
         self.accuracyCriterion = method
 
     def simulate_problem(self, x):
+        """
+        Executes the problem which is to be analyzed. If static Variables where
+        defined as additional arguments for the problem, these arguments are
+        added to the function call.
+        :param x: Point in the design space
+        :type x: Numpy-array
+        :return: System responce
+        :rtype: Numpy-array
+
+        """
+
         if self.problem_args is None:
             return self.problem(x)
         else:
@@ -366,13 +418,15 @@ class adaptive_metamodell:
 
         self.ite = 0
         self.maxite = 5
-
+        self.all_nx_var = []
+        self.all_success = []
+        
         while self.optGoal is False:
 
             self.sm = self.smMethod(self.x, self.y)
 
             self.nX = optimize.get_lowest_variance(self.sm, self.limits)
-
+            
             self.append_x_data(self.nX)
             self.append_y_data(self.simulate_problem(np.atleast_2d(self.nX)))
 

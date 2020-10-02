@@ -1,6 +1,7 @@
 import numpy as np
 from treeopt.treeOpt import least_squares
 
+import matplotlib.pyplot as plt
 
 def parabola(params, x):
     """
@@ -59,7 +60,7 @@ goal_parabola = parabola(goal_params, x_data)
 op = least_squares()
 
 # Sets the error function as the function to be analyzed
-op.set_least_squares_function(error)
+op.set_problem(error)
 
 # Sets a starting point for the optimization
 start_point = (0, 0, 0)
@@ -67,11 +68,11 @@ op.set_start_point(start_point)
 
 # Sets upper and lower Bounds for the variables
 bounds = ((-10, -10, -10), (10, 10, 10))
-op.set_optimization_limits(bounds)
+op.set_limits(bounds)
 
 # Sets additional arguments to be passed to the function
 my_args = (goal_parabola, x_data)
-op.set_least_squares_function_args(my_args)
+op.set_problem_args(my_args)
 
 # Initializes the Optimization
 res = op.start_optimization()
@@ -79,3 +80,12 @@ res = op.start_optimization()
 # Prints the Result of the optimization
 print(res.nfev)
 print(res.x)
+
+found_parabola = parabola(res.x, x_data)
+
+# plt.plot(x_data, goal_parabola)
+# plt.plot(x_data, found_parabola)
+plt.plot(x_data, goal_parabola-found_parabola)
+plt.plot(x_data, (goal_parabola-found_parabola)**2)
+plt.grid()
+plt.show()

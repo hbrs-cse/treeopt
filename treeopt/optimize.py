@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.optimize as optimize
+import time
 
 
 def get_largest_uncertainty_function(x, sm):
@@ -78,7 +79,7 @@ def get_lowest_variance(sm, limits):
 
     start = np.empty(limits.shape[0], dtype=float)
     for dim in range(limits.shape[0]):
-        start[dim] = limits[dim][1] + limits[dim][0]
+        start[dim] = (limits[dim][1] + limits[dim][0])/2
 
     res = optimize.minimize(
         get_lowest_variance_function,
@@ -87,6 +88,8 @@ def get_lowest_variance(sm, limits):
         bounds=tuple(map(tuple, limits)),
         method="L-BFGS-B",
     )
+
+    print(res)
 
     return res.x
 

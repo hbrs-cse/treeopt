@@ -325,8 +325,6 @@ class Visualize:
             XY.astype(np.float)
         )
         
-        print(fun1_Vars)
-        
         images = []
         for i in range(x_data.shape[1]):
             for j in range(i + 1, x_data.shape[1]):
