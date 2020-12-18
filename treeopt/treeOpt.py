@@ -31,6 +31,7 @@ class least_squares:
         self.diff_step = 0.01
         self.max_nfev = None
         self.x_tol = 1e-8
+        self.f_tol = 1e-8
 
     def set_problem(self, problem):
         """
@@ -105,6 +106,9 @@ class least_squares:
     def set_x_tol(self, value):
         self.x_tol = value
 
+    def set_f_tol(self, value):
+        self.f_tol = value
+
     def set_max_nfev(self, max_nfev):
         """
         Sets a maximum number of function evaluations if a value other than the
@@ -174,6 +178,7 @@ class least_squares:
                 diff_step=self.diff_step,
                 max_nfev=self.max_nfev,
                 xtol=self.x_tol,
+                ftol=self.f_tol,
             )
 
         self.sim_res = op
