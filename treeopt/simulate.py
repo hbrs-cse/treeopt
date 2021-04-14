@@ -12,7 +12,6 @@ def execute_python_function(fun, x, args):
     :type x: Numpy array
     :return: Function Value of the function at the point x
     :rtype: Numpy array
-
     """
 
     return fun(x)
@@ -28,7 +27,6 @@ def write_data(filePath, Data):
     :type Data: Numpy array
     :return: Nothing
     :rtype: None
-
     """
 
     np.savetxt(filePath, Data)
@@ -41,7 +39,6 @@ def read_data(filePath):
     :type filePath: String
     :return: Numpy array with the content of the File
     :rtype: Numpy array
-
     """
 
     data = np.loadtxt(filePath)
@@ -58,7 +55,6 @@ def start_programm(programm, simulationFile):
     :type simulationFile: TYPE
     :return: DESCRIPTION
     :rtype: TYPE
-
     """
 
     subprocess.call([programm, "< " + simulationFile])
@@ -81,7 +77,6 @@ def simulate_external_programm(inputFile, outputFile, simFile, program, x):
     :type X: Numpy array
     :return: Nothing
     :rtype: None
-
     """
 
     write_data(inputFile, x)

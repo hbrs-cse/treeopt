@@ -13,7 +13,6 @@ class Visualize:
         :type optimizer: TreeOpt Class Object
         :return: Nothing
         :rtype: None
-
         """
 
         self.opti_data = optimizer
@@ -28,7 +27,6 @@ class Visualize:
         metamodell on the left Outputs a matplotlib graph
         :return: Nothing
         :rtype: None
-
         """
 
         x_step = np.linspace(
@@ -177,7 +175,6 @@ class Visualize:
         Plots a metamodell with two one input variable and one output variable
         :return: Nothing
         :rtype: None
-
         """
 
         x_step = np.linspace(
@@ -206,7 +203,6 @@ class Visualize:
         Plots a Metamodell with two input variables and one output variable
         :return: Nothing
         :rtype: None
-
         """
 
         x_step = np.linspace(
@@ -301,7 +297,6 @@ class Visualize:
         Generates a Corner Plot of the diffenent axes of the metamodell
         :return: Nothing
         :rtype: None
-
         """
 
         dim = self.opti_data.x.shape[1]
@@ -342,9 +337,8 @@ class Visualize:
     def plot(self):
         """
         Calls a individual plot function depending on the provided data
-        :return: DESCRIPTION
-        :rtype: TYPE
-
+        :return: Nothing
+        :rtype: None
         """
 
         if (

@@ -4,6 +4,9 @@ import time
 
 
 def get_largest_uncertainty_function(x, sm):
+    """
+    Function to calculate a function containing
+    """
     x = np.atleast_2d(x)
 
     sm_val = sm.predict_values(x)

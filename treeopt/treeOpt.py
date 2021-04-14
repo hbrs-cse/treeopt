@@ -15,16 +15,16 @@ import scipy.optimize as sk_optimize
 
 class least_squares:
     """
-    Python class, that bundles all modules nessesary to do least-squares
-    optimization
+    Python class, that bundles all modules nessesary to do a least-squares
+    optimization.
     """
 
     def __init__(self):
         """
-        Pre allocates variables with default values
+        Pre allocates variables with default values. These variables can be
+        changed in their coressponding "set"-Function
         :return: Nothing
         :rtype: None
-
         """
         self.optimization_function_args = None
         self.optimization_function_kw_args = None
@@ -37,8 +37,9 @@ class least_squares:
         """
         Sets the problem of which an optimization is to be done. Arguments have
         to be passed in the following way:
-            function(x, *args), where x are the parameters
-            which are to be optimized and *args are static Variables.
+            function(x, *args, **kwargs), where x are the parameters
+            which are to be optimized, *args are static Variables and **kwargs
+            are keyword-Variables.
         :param problem: A function that takes takes parameters and returnes the
         system responce
         :type problem: Python function
@@ -57,12 +58,19 @@ class least_squares:
         :type args: Tuple
         :return: Nothing
         :rtype: None
-
         """
         self.optimization_function_args = args
 
     def set_problem_kw_args(self, args):
-
+        """
+        Sets additional Keyword Arguments, which are to be passed with each
+        call of the problem function. Arguments have to be passed together with
+        their coressponding keyword.
+        :param args: Tuple containing the keywords and the arguments
+        :type args: Tuple
+        :return: Nothing
+        :rtype: None
+        """
         self.optimization_function_kw_args = args
 
     def set_start_point(self, point):
@@ -98,15 +106,31 @@ class least_squares:
         :type value: Float
         :return: Nothing
         :rtype: None
-
         """
 
         self.diff_step = value
 
     def set_x_tol(self, value):
+        """
+        Sets the x_tol parameter (default x_tol = 1e-08). This parameter
+        describes the Tolerance for termination by the change of the
+        independent variables.
+        :param value:
+        :type: float
+        :return: Nothing
+        :rtype: None
+        """
         self.x_tol = value
 
     def set_f_tol(self, value):
+        """
+        Sets the f_tol parameter (default f_tol = 1e-08). This parameter is the
+        Tolerance for termination by the change of the cost function.
+        :param value:
+        :type: float
+        :return: Nothing
+        :rtype: None
+        """
         self.f_tol = value
 
     def set_max_nfev(self, max_nfev):
@@ -117,7 +141,6 @@ class least_squares:
         :type max_nfev: Integer
         :return: Nothing
         :rtype: None
-
         """
 
         self.max_nfev = max_nfev
@@ -125,10 +148,12 @@ class least_squares:
     def start_optimization(self):
         """
         Function that starts the previosly parameterized adaptive optimization
-        loop
-        :return: Nothing
-        :rtype: None
-
+        loop. It uses the prevously defined parameters, which are stored in as
+        class varaibles. The funktion differs between four configurations
+        containing different parameterizations of the
+        optimization_function_args and the optimization_function_kw_args
+        :return: Object containing the Optimization result
+        :rtype: Scipy-Optimize Object
         """
         if (
             self.optimization_function_args is None
@@ -193,10 +218,10 @@ class adaptive_metamodell:
 
     def __init__(self):
         """
-        Pre allocates variables with default values
+        Pre allocates variables with default values. These variables can be
+        changed in their coressponding "set"-Function
         :return: Nothing
         :rtype: None
-
         """
 
         self.samplingMethod = sampling.latin_hypercube
@@ -212,7 +237,6 @@ class adaptive_metamodell:
         :type xi: Numpy array
         :return: Nothing
         :rtype: None
-
         """
 
         self.x = np.vstack([self.x, xi])
@@ -224,7 +248,6 @@ class adaptive_metamodell:
         :type yi: Numpy array
         :return: nothing
         :rtype: none
-
         """
 
         self.y = np.vstack([self.y, yi])
@@ -239,7 +262,6 @@ class adaptive_metamodell:
         :type filename: String
         :return: Nothing
         :rtype: None
-
         """
 
         Path(os.getcwd() + "/treeOptData").mkdir(parents=True, exist_ok=True)
@@ -254,7 +276,6 @@ class adaptive_metamodell:
         :type filename: String
         :return: Array containing the information of the file
         :rtype: Numpy Array
-
         """
 
         path = os.path.join(os.getcwd() + "/treeOptData", filename + ".csv")

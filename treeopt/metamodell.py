@@ -11,7 +11,6 @@ def rbf(xt, yt):
     :type yt: Numpy array
     :return: python object containing the trained metamodell
     :rtype: Smt-object
-
     """
 
     sm = smt.RBF(print_prediction=False, poly_degree=0, print_global=False)
@@ -30,7 +29,6 @@ def krg(xt, yt):
     :type yt: Numpy array
     :return: python object containing the trained metamodell
     :rtype: Smt-object
-
     """
 
     sm = smt.KRG(theta0=[1e-2])
@@ -51,7 +49,6 @@ def idw(xt, yt):
     :type yt: Numpy array
     :return: python object containing the trained metamodell
     :rtype: Smt-object
-
     """
 
     sm = smt.IDW(p=2)

@@ -10,7 +10,6 @@ def latin_hypercube(limits, ndoe):
     :type ndoe: Integer
     :return: Numpy array containg the sampled points
     :rtype: Numpy array
-
     """
 
     sampling = smtSam.LHS(xlimits=limits, criterion="m")
@@ -27,7 +26,6 @@ def full_factorial(limits, ndoe):
     :type ndoe: Integer
     :return: Numpy-array containg the sampled points
     :rtype: Numpy array
-
     """
 
     sampling = smtSam.FullFactorial(xlimits=limits)
@@ -45,7 +43,6 @@ def random(limits, ndoe):
     :type ndoe: Integer
     :return: Numpy-array containg the sampled points
     :rtype: Numpy array
-
     """
 
     sampling = smtSam.Random(xlimits=limits)
