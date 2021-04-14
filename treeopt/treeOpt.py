@@ -2,6 +2,7 @@ import numpy as np
 import os
 
 from pathlib import Path
+import scipy.optimize as sk_optimize
 
 # Import of treeopt submodules
 import treeopt.sampling as sampling
@@ -9,8 +10,6 @@ import treeopt.simulate as simulate
 import treeopt.optimize as optimize
 import treeopt.metamodell as metamodell
 import treeopt.visualize as visualize
-
-import scipy.optimize as sk_optimize
 
 
 class least_squares:
@@ -446,16 +445,17 @@ class adaptive_metamodell:
         self.maxite = 5
         self.all_nx_var = []
         self.all_success = []
-        
+
         while self.optGoal is False:
 
             self.sm = self.smMethod(self.x, self.y)
 
             self.nX = optimize.get_lowest_variance(self.sm, self.limits)
-            
+
             self.append_x_data(self.nX)
             self.append_y_data(self.simulate_problem(np.atleast_2d(self.nX)))
 
+            #Writes the Data in a file.
             self.write_data(self.x, "DoeData")
             self.write_data(self.y, "DoeResponce")
 

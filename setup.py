@@ -50,10 +50,10 @@ setup(
     install_requires=[
         # Include dependencies here
         'click>=7.0,<8'
-        'numpy>=1.8.5',
-        'smt>=0.5.3',
-        'scipy>=1.5.0',
-        'matplotlib>=3.2.2'
+        'numpy>=1.18.5',
+        'smt>=0.6.0',
+        'scipy>=1.5.2',
+        'matplotlib>=3.3.1'
     ],
     entry_points="""
     [console_scripts]
@@ -61,8 +61,8 @@ setup(
     """,
     python_requires=">=0.0.1",
     license='MIT',  # noqa
-    author='Jan Kleinert',
-    author_email='jan.kleinert@dlr.de',
+    author='Alexander Busch',
+    author_email='alexander.busch@smail.emt.h-brs.de',
     # Use the URL to the github repo.
     url= 'https://github.com/joergbrech/treeopt',
     download_url=(

@@ -5,8 +5,17 @@ import time
 
 def get_largest_uncertainty_function(x, sm):
     """
-    Function to calculate a function containing
+    Function to calculate and return a the function value of the uncertainty at
+    a given point x
+    :param sm: Python object representing the benchmarking function
+    :type sm: SMT-Object
+    :param x: Numpy array representing a point on which the lowest varinace
+    function is to be evaluated
+    :type x: Numpy array
+    :return: Function Value at the point x
+    :rtype: Numpy array
     """
+
     x = np.atleast_2d(x)
 
     sm_val = sm.predict_values(x)
@@ -19,6 +28,18 @@ def get_largest_uncertainty_function(x, sm):
 
 
 def get_lowest_variance_function(x, sm):
+    """
+    Function to calculate the lower variance of an SMT-metamodell at a given
+    point x
+    :param sm: Python object representing the benchmarking function
+    :type sm: SMT-Object
+    :param x: Numpy array representing a point on which the lowest varinace
+    function is to be evaluated
+    :type x: Numpy array
+    :return: Function Value at the point x
+    :rtype: Numpy array
+    """
+
     x = np.atleast_2d(x)
 
     sm_val = sm.predict_values(x)
@@ -30,6 +51,16 @@ def get_lowest_variance_function(x, sm):
 
 
 def get_minimum_function(x, sm):
+    """
+    Returns the approximation of a function value in of the matamodell
+    :param sm: Python object representing the benchmarking function
+    :type sm: SMT-Object
+    :param x: Numpy array representing a point on which the lowest varinace
+    function is to be evaluated
+    :type x: Numpy array
+    :return: Function Value at the point x
+    :rtype: Numpy array
+    """
     x = np.atleast_2d(x)
 
     y = sm.predict_values(x)
@@ -82,7 +113,7 @@ def get_lowest_variance(sm, limits):
 
     start = np.empty(limits.shape[0], dtype=float)
     for dim in range(limits.shape[0]):
-        start[dim] = (limits[dim][1] + limits[dim][0])/2
+        start[dim] = (limits[dim][1] + limits[dim][0]) / 2
 
     res = optimize.minimize(
         get_lowest_variance_function,

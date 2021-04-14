@@ -19,6 +19,14 @@ class Visualize:
         self.num_ele = 100
 
     def set_n(self, n):
+        """
+        Sets the number of points which on which a metamodell is to be
+        evaluated alongside each axis, in order to generate a plot
+        :param n: Number of Evaluations alongside each axis (default n=100)
+        :type n: Integer
+        :return: Nothing
+        :rtype: None
+        """
         self.num_ele = n
 
     def plot_benchmark_2vars(self):
@@ -306,20 +314,18 @@ class Visualize:
         x_data = self.opti_data.x
 
         x_step = np.zeros([self.num_ele, x_data.shape[1]])
-        
+
         for i in range(x_data.shape[1]):
-            x_step[:,i] = np.linspace(
-                    self.opti_data.limits[i, 0],
-                    self.opti_data.limits[i, 1],
-                    self.num_ele,
-                )
-            
+            x_step[:, i] = np.linspace(
+                self.opti_data.limits[i, 0],
+                self.opti_data.limits[i, 1],
+                self.num_ele,
+            )
+
         XY = np.dstack(np.meshgrid(x_step))
-            
-        fun1Vars = self.opti_data.sm.predict_values(
-            XY.astype(np.float)
-        )
-        
+
+        fun1Vars = self.opti_data.sm.predict_values(XY.astype(np.float))
+
         images = []
         for i in range(x_data.shape[1]):
             for j in range(i + 1, x_data.shape[1]):
@@ -347,10 +353,12 @@ class Visualize:
         ):
             if self.opti_data.x.shape[1] == 1:
                 print("Hier ist eine 2-D Benchmarking Funktion zu sehen")
+                raise NotImplementedError
             elif self.opti_data.x.shape[1] == 2:
                 self.plot_benchmark_2vars()
             else:
                 print("Hier ist eine N-Dim Benchmarking Funktion zu sehen")
+                raise NotImplementedError
         elif self.opti_data.sim_keyword == "extern":
             if self.opti_data.x.shape[1] == 1:
                 self.plot_metamodell_1vars()
