@@ -18,9 +18,9 @@ class Visualize:
         self.opti_data = optimizer
         self.num_ele = 100
 
-    def set_n(self, n):
+    def set_number_of_points(self, n):
         """
-        Sets the number of points which on which a metamodell is to be
+        Sets the number of points which on which a metamodel is to be
         evaluated alongside each axis, in order to generate a plot
         :param n: Number of Evaluations alongside each axis (default n=100)
         :type n: Integer
@@ -49,7 +49,7 @@ class Visualize:
         )
         XY = np.dstack(np.meshgrid(x_step, y_step)).reshape(-1, 2)
 
-        fun1Vars = self.opti_data.simulate_problem(
+        fun1Vars = self.opti_data.execute_problem(
             XY.astype(np.float)
         ).reshape(self.num_ele, self.num_ele)
         fun2Vars = self.opti_data.sm.predict_values(
@@ -348,18 +348,16 @@ class Visualize:
         """
 
         if (
-            self.opti_data.sim_keyword == "benchmarking"
-            or self.opti_data.sim_keyword == "Benchmarking"
+            self.opti_data.vis_keyword == "benchmarking"
+            or self.opti_data.vis_keyword == "Benchmarking"
         ):
             if self.opti_data.x.shape[1] == 1:
-                print("Hier ist eine 2-D Benchmarking Funktion zu sehen")
-                raise NotImplementedError
+                raise NotImplementedError("This function is not implemented at the moment")
             elif self.opti_data.x.shape[1] == 2:
                 self.plot_benchmark_2vars()
             else:
-                print("Hier ist eine N-Dim Benchmarking Funktion zu sehen")
-                raise NotImplementedError
-        elif self.opti_data.sim_keyword == "extern":
+                raise NotImplementedError("This function is not implemented at the moment")
+        elif self.opti_data.vis_keyword == "extern":
             if self.opti_data.x.shape[1] == 1:
                 self.plot_metamodell_1vars()
             elif self.opti_data.x.shape[1] == 2:

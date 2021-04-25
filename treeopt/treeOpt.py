@@ -8,7 +8,7 @@ import scipy.optimize as sk_optimize
 import treeopt.sampling as sampling
 import treeopt.simulate as simulate
 import treeopt.optimize as optimize
-import treeopt.metamodell as metamodell
+import treeopt.metamodel as metamodel
 import treeopt.visualize as visualize
 
 
@@ -26,13 +26,15 @@ class least_squares:
         :rtype: None
         """
         self.optimization_function_args = None
-        self.optimization_function_kw_args = None
+        self.optimization_function_kwargs = None
         self.diff_step = 0.01
         self.max_nfev = None
         self.x_tol = 1e-8
         self.f_tol = 1e-8
+        self.optimization_function_args = []
+        self.optimization_function_kwargs = {}
 
-    def set_problem(self, problem):
+    def set_cost_function(self, cost_function):
         """
         Sets the problem of which an optimization is to be done. Arguments have
         to be passed in the following way:
@@ -46,9 +48,9 @@ class least_squares:
         :rtype: None
         """
 
-        self.optimization_function = problem
+        self.optimization_function = cost_function
 
-    def set_problem_args(self, args):
+    def set_cost_function_args(self, args):
         """
         Sets additional Arguments, which are to be passed with each call of the
         problem function. Arguments have to be passed in the same order in
@@ -60,7 +62,7 @@ class least_squares:
         """
         self.optimization_function_args = args
 
-    def set_problem_kw_args(self, args):
+    def set_cost_function_kwargs(self, args):
         """
         Sets additional Keyword Arguments, which are to be passed with each
         call of the problem function. Arguments have to be passed together with
@@ -70,7 +72,7 @@ class least_squares:
         :return: Nothing
         :rtype: None
         """
-        self.optimization_function_kw_args = args
+        self.optimization_function_kwargs = args
 
     def set_start_point(self, point):
         """
@@ -144,65 +146,27 @@ class least_squares:
 
         self.max_nfev = max_nfev
 
-    def start_optimization(self):
+    def optimize(self):
         """
         Function that starts the previosly parameterized adaptive optimization
         loop. It uses the prevously defined parameters, which are stored in as
         class varaibles. The funktion differs between four configurations
         containing different parameterizations of the
-        optimization_function_args and the optimization_function_kw_args
+        optimization_function_args and the optimization_function_kwargs
         :return: Object containing the Optimization result
         :rtype: Scipy-Optimize Object
         """
-        if (
-            self.optimization_function_args is None
-            and self.optimization_function_kw_args is None
-        ):
-            op = sk_optimize.least_squares(
-                self.optimization_function,
-                self.start_point,
-                bounds=self.limits,
-                diff_step=self.diff_step,
-                max_nfev=self.max_nfev,
-                xtol=self.x_tol,
-            )
-        elif (
-            self.optimization_function_args is None
-            and self.optimization_function_kw_args is not None
-        ):
-            op = sk_optimize.least_squares(
-                self.optimization_function,
-                self.start_point,
-                bounds=self.limits,
-                kwargs=self.optimization_function_kw_args,
-                diff_step=self.diff_step,
-                max_nfev=self.max_nfev,
-                xtol=self.x_tol,
-            )
-        elif (
-            self.optimization_function_args is not None
-            and self.optimization_function_kw_args is None
-        ):
-            op = sk_optimize.least_squares(
-                self.optimization_function,
-                self.start_point,
-                bounds=self.limits,
-                args=self.optimization_function_args,
-                diff_step=self.diff_step,
-                max_nfev=self.max_nfev,
-                xtol=self.x_tol,
-            )
-        else:
-            op = sk_optimize.least_squares(
-                self.optimization_function,
-                self.start_point,
-                bounds=self.limits,
-                args=self.optimization_function_args,
-                kwargs=self.optimization_function_kw_args,
-                diff_step=self.diff_step,
-                max_nfev=self.max_nfev,
-                xtol=self.x_tol,
-                ftol=self.f_tol,
+
+        op = sk_optimize.least_squares(
+            self.optimization_function,
+            self.start_point,
+            bounds=self.limits,
+            args=self.optimization_function_args,
+            kwargs=self.optimization_function_kwargs,
+            diff_step=self.diff_step,
+            max_nfev=self.max_nfev,
+            xtol=self.x_tol,
+            ftol=self.f_tol,
             )
 
         self.sim_res = op
@@ -224,9 +188,11 @@ class adaptive_metamodell:
         """
 
         self.samplingMethod = sampling.latin_hypercube
-        self.smMethod = metamodell.krg
-        self.problem_args = None
-        self.sim_keyword = "extern"
+        self.smMethod = metamodel.krg
+        self.optimization_function_args = []
+        self.vis_keyword = None
+        self.filepath = None
+        self.filename = None
 
     # Functions for Data management
     def append_x_data(self, xi):
@@ -250,8 +216,8 @@ class adaptive_metamodell:
         """
 
         self.y = np.vstack([self.y, yi])
-
-    def write_data(self, npArray, filename):
+        
+    def write_data(self, Data, filepath, filename):
         """
         Function that writes a numpy Array into a file in the threeOptData
         direcory
@@ -262,11 +228,25 @@ class adaptive_metamodell:
         :return: Nothing
         :rtype: None
         """
-
-        Path(os.getcwd() + "/treeOptData").mkdir(parents=True, exist_ok=True)
-        path = os.path.join(os.getcwd() + "/treeOptData", filename + ".csv")
-        np.savetxt(path, npArray, delimiter=",")
-
+        
+        # Path(os.getcwd() + os.sep + "treeOptData").mkdir(parents=True, exist_ok=True)
+        # path = os.path.join(os.getcwd() + os.sep + "treeOptData", filename + ".csv")
+        # np.savetxt(path, npArray, delimiter=",")
+        
+        import time
+        
+        Path(filepath).mkdir(parents=True, exist_ok=True)
+        path = os.path.join(filepath, filename + ".csv")
+        np.savetxt(path, Data, delimiter=",")
+        
+        time.sleep(2)
+        
+    def set_filepath(self, filepath):
+        self.filepath = filepath
+        
+    def set_filename(self, filename):
+        self.filename = filename
+        
     def read_data(self, filename):
         """
         Function that reads a file in the treeOptData directory and creates a
@@ -277,7 +257,7 @@ class adaptive_metamodell:
         :rtype: Numpy Array
         """
 
-        path = os.path.join(os.getcwd() + "/treeOptData", filename + ".csv")
+        path = os.path.join(os.getcwd() + + os.sep + "treeOptData", filename + ".csv")
         array = np.loadtxt(path, delimiter=",")
         return array
 
@@ -297,9 +277,12 @@ class adaptive_metamodell:
     def set_sampling_method(self, method):
         """
         Sets the Sampling Method inteddet to be used by the individual
-        Optimization Problem
-        :param method: Python Object
-        :type method: TYPE
+        Optimization Problem. TreeOpt provides the following methods:
+            -sampling.latin_hypercube (default)
+            -sampling.full_factorial
+            -sampling.random
+        :param method: Python function which returns the the sampled points
+        :type method: Python function
         :return: Nothing
         :rtype: None
 
@@ -333,7 +316,7 @@ class adaptive_metamodell:
 
         self.limits = limits
 
-    def set_problem(self, problem):
+    def set_cost_function(self, cost_function):
         """
         Sets the problem of which an optimization is to be done. Arguments have
         to be passed in the following way:
@@ -346,9 +329,9 @@ class adaptive_metamodell:
         :rtype: None
 
         """
-        self.problem = problem
+        self.problem = cost_function
 
-    def set_problem_args(self, args):
+    def set_cost_function_args(self, args):
         """
         Sets additional Arguments, which are to be passed with each call of the
         problem function. Arguments have to be passed in the same order in
@@ -360,11 +343,11 @@ class adaptive_metamodell:
 
         """
 
-        self.problem_args = args
+        self.optimization_function_args = args
 
-    def set_sim_keyword(self, keyword):
+    def set_vis_keyword(self, keyword):
         """
-        Adds a keyword to the Optimization Algorithm. When a MEtamodell is to
+        Adds a keyword to the Optimization Algorithm. When a Metamodell is to
         be visualized, the value of the keyword is checked and depending on the
         keyword a different plot is generated
         :param keyword: Keyword describing the problem-type (default "extern",
@@ -375,13 +358,16 @@ class adaptive_metamodell:
 
         """
 
-        self.sim_keyword = keyword
+        self.vis_keyword = keyword
 
     def set_sm_method(self, method):
         """
         Sets the Method that is used to approximate the system responce in the
-        design space
-        :param method: one of the functions in modules/metamodell.py
+        design space. In treeopt the following methods are implemented:
+            -metamodel.rbf (radial basis functions) (default)
+            -metamodel.krg (kriging) 
+            -metamodel.idw (inverse distance weigthing)
+        :param method: one of the metamodelling functions
         :type method: python function
         :return: Nothing
         :rtype: None
@@ -390,20 +376,7 @@ class adaptive_metamodell:
 
         self.smMethod = method
 
-    def set_accuracy_criterion(self, method):
-        """
-        Sets the method that is used to define the termination condition of the
-        optimization workflow
-        :param method: one of the functions in modules/accuracy
-        :type method: Python Function
-        :return: Nothing
-        :rtype: None
-
-        """
-
-        self.accuracyCriterion = method
-
-    def simulate_problem(self, x):
+    def execute_problem(self, x):
         """
         Executes the problem which is to be analyzed. If static Variables where
         defined as additional arguments for the problem, these arguments are
@@ -414,13 +387,11 @@ class adaptive_metamodell:
         :rtype: Numpy-array
 
         """
+        
+        return self.problem(x, *self.optimization_function_args)
 
-        if self.problem_args is None:
-            return self.problem(x)
-        else:
-            return self.problem(x, self.problem_args)
 
-    def start_optimization(self):
+    def optimize(self):
         """
         Function that starts the previosly parameterized adaptive optimization
         loop
@@ -431,13 +402,13 @@ class adaptive_metamodell:
 
         self.x = self.samplingMethod(self.limits, self.numDOE)
 
-        self.y = self.simulate_problem(np.atleast_2d(self.x[0]))
+        self.y = self.execute_problem(np.atleast_2d(self.x[0]))
         for xi in self.x[1:]:
-            print(self.simulate_problem(np.atleast_2d(xi)))
-            self.append_y_data(self.simulate_problem(np.atleast_2d(xi)))
-
-        self.write_data(self.x, "DoeData")
-        self.write_data(self.y, "DoeResponce")
+            self.append_y_data(self.execute_problem(np.atleast_2d(xi)))
+        
+        if self.filepath is not None:
+            self.write_data(self.x, self.filepath, self.filename+"DoeData")
+            self.write_data(self.y, self.filepath, self.filename+"DoeResponce")
 
         self.optGoal = False
 
@@ -450,14 +421,15 @@ class adaptive_metamodell:
 
             self.sm = self.smMethod(self.x, self.y)
 
-            self.nX = optimize.get_lowest_variance(self.sm, self.limits)
+            self.nX = optimize.search_lowest_variance(self.sm, self.limits)
 
             self.append_x_data(self.nX)
-            self.append_y_data(self.simulate_problem(np.atleast_2d(self.nX)))
+            self.append_y_data(self.execute_problem(np.atleast_2d(self.nX)))
 
             #Writes the Data in a file.
-            self.write_data(self.x, "DoeData")
-            self.write_data(self.y, "DoeResponce")
+            if self.filepath is not None:
+                self.write_data(self.x, self.filepath, self.filename+"DoeData")
+                self.write_data(self.y, self.filepath, self.filename+"DoeResponce")
 
             self.ite += 1
 
@@ -467,7 +439,7 @@ class adaptive_metamodell:
             self.current_best_point = optimize.find_minimum(
                 self.sm, self.limits
             )
-            print("bester Punkt:", self.current_best_point)
-
-        vis = visualize.Visualize(self)
-        vis.plot()
+        
+        if self.vis_keyword is not None:
+            vis = visualize.Visualize(self)
+            vis.plot()

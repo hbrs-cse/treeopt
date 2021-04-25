@@ -46,7 +46,7 @@ def read_data(filePath):
     return data
 
 
-def start_programm(programm, simulationFile):
+def start_programm(startString):
     """
     Starts a Programm with a File to be executed
     :param programm: Name of the programm
@@ -57,7 +57,7 @@ def start_programm(programm, simulationFile):
     :rtype: TYPE
     """
 
-    subprocess.call([programm, "< " + simulationFile])
+    subprocess.call([startString])
 
 
 def simulate_external_programm(inputFile, outputFile, simFile, program, x):
