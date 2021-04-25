@@ -1,32 +1,22 @@
 from treeopt.treeOpt import adaptive_metamodell
-from treeopt import simulate
 import numpy as np
-import subprocess
-
-
-def calc_matlab(x):
-    inputFile = "input.txt"
-    outputFile = "output.txt"
-    simFile = "matlab_function.m"
-    program = "matlab"
-    responce = simulate.simulate_external_programm(
-        inputFile, outputFile, simFile, program, x
-    )
-
-    return responce
+import os
 
 def execute_matlab():
-    
-    subprocess.Popen("start matlab -r matlab_function.m")
+    os.system("matlab -nodesktop -nosplash -batch matlab_function")
 
 def read_matlab_output():
-    data = np.loadtxt("output2.txt")
+    data = np.loadtxt("output.txt")
     return(data)
 
 def write_matlab_input(data):
-    np.savetxt("output2.txt", data)
+    np.savetxt("input.txt", data)
 
-
+def simulation_procedure(x):
+    write_matlab_input(x)
+    execute_matlab()
+    ret = read_matlab_output()
+    return(ret)
 
 # Generates a TreeOpt object
 opt = adaptive_metamodell()
@@ -43,8 +33,11 @@ ndoe = 5
 opt.set_num_doe(ndoe)
 
 # Gets a benchmarking function
-fun = calc_matlab
+fun = simulation_procedure
 opt.set_cost_function(fun)
 
+# Sets the keyword to plot the model
+opt.set_vis_keyword("extern")
+
 # Starts the Optimization
-#opt.optimize()
+opt.optimize()

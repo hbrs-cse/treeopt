@@ -6,7 +6,6 @@ import scipy.optimize as sk_optimize
 
 # Import of treeopt submodules
 import treeopt.sampling as sampling
-import treeopt.simulate as simulate
 import treeopt.optimize as optimize
 import treeopt.metamodel as metamodel
 import treeopt.visualize as visualize
@@ -167,7 +166,7 @@ class least_squares:
             max_nfev=self.max_nfev,
             xtol=self.x_tol,
             ftol=self.f_tol,
-            )
+        )
 
         self.sim_res = op
         return op
@@ -216,7 +215,7 @@ class adaptive_metamodell:
         """
 
         self.y = np.vstack([self.y, yi])
-        
+
     def write_data(self, Data, filepath, filename):
         """
         Function that writes a numpy Array into a file in the threeOptData
@@ -228,25 +227,25 @@ class adaptive_metamodell:
         :return: Nothing
         :rtype: None
         """
-        
+
         # Path(os.getcwd() + os.sep + "treeOptData").mkdir(parents=True, exist_ok=True)
         # path = os.path.join(os.getcwd() + os.sep + "treeOptData", filename + ".csv")
         # np.savetxt(path, npArray, delimiter=",")
-        
+
         import time
-        
+
         Path(filepath).mkdir(parents=True, exist_ok=True)
         path = os.path.join(filepath, filename + ".csv")
         np.savetxt(path, Data, delimiter=",")
-        
+
         time.sleep(2)
-        
+
     def set_filepath(self, filepath):
         self.filepath = filepath
-        
+
     def set_filename(self, filename):
         self.filename = filename
-        
+
     def read_data(self, filename):
         """
         Function that reads a file in the treeOptData directory and creates a
@@ -257,7 +256,9 @@ class adaptive_metamodell:
         :rtype: Numpy Array
         """
 
-        path = os.path.join(os.getcwd() + + os.sep + "treeOptData", filename + ".csv")
+        path = os.path.join(
+            os.getcwd() + +os.sep + "treeOptData", filename + ".csv"
+        )
         array = np.loadtxt(path, delimiter=",")
         return array
 
@@ -387,9 +388,8 @@ class adaptive_metamodell:
         :rtype: Numpy-array
 
         """
-        
-        return self.problem(x, *self.optimization_function_args)
 
+        return self.problem(x, *self.optimization_function_args)
 
     def optimize(self):
         """
@@ -405,10 +405,12 @@ class adaptive_metamodell:
         self.y = self.execute_problem(np.atleast_2d(self.x[0]))
         for xi in self.x[1:]:
             self.append_y_data(self.execute_problem(np.atleast_2d(xi)))
-        
+
         if self.filepath is not None:
-            self.write_data(self.x, self.filepath, self.filename+"DoeData")
-            self.write_data(self.y, self.filepath, self.filename+"DoeResponce")
+            self.write_data(self.x, self.filepath, self.filename + "DoeData")
+            self.write_data(
+                self.y, self.filepath, self.filename + "DoeResponce"
+            )
 
         self.optGoal = False
 
@@ -426,10 +428,14 @@ class adaptive_metamodell:
             self.append_x_data(self.nX)
             self.append_y_data(self.execute_problem(np.atleast_2d(self.nX)))
 
-            #Writes the Data in a file.
+            # Writes the Data in a file.
             if self.filepath is not None:
-                self.write_data(self.x, self.filepath, self.filename+"DoeData")
-                self.write_data(self.y, self.filepath, self.filename+"DoeResponce")
+                self.write_data(
+                    self.x, self.filepath, self.filename + "DoeData"
+                )
+                self.write_data(
+                    self.y, self.filepath, self.filename + "DoeResponce"
+                )
 
             self.ite += 1
 
@@ -439,7 +445,7 @@ class adaptive_metamodell:
             self.current_best_point = optimize.find_minimum(
                 self.sm, self.limits
             )
-        
+
         if self.vis_keyword is not None:
             vis = visualize.Visualize(self)
             vis.plot()

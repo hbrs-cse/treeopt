@@ -2,6 +2,7 @@ import numpy as np
 import scipy.optimize as optimize
 import time
 
+
 def predict_value(x, sm):
     """
     Returns the approximation of a function value in of the matamodell
@@ -33,7 +34,7 @@ def search_higest_uncertainty(sm, limits):
     :rtype: Numpy-array
 
     """
-    
+
     def get_largest_uncertainty(x, sm):
         """
         Function to calculate and return a the function value of the uncertainty at
@@ -46,17 +47,16 @@ def search_higest_uncertainty(sm, limits):
         :return: Function Value at the point x
         :rtype: Numpy array
         """
-    
+
         x = np.atleast_2d(x)
-    
+
         sm_val = sm.predict_values(x)
         sm_var = sm.predict_variances(x)
-    
+
         pyvar = sm_val + 3 * np.sqrt(sm_var)
         nyvar = sm_val - 3 * np.sqrt(sm_var)
-    
+
         return np.abs(pyvar - nyvar)
-    
 
     start = np.empty(limits.shape[0], dtype=float)
     for dim in range(limits.shape[0]):
@@ -86,7 +86,7 @@ def search_lowest_variance(sm, limits):
     :rtype: Numpy-array
 
     """
-    
+
     def get_lowest_variance(x, sm):
         """
         Function to calculate the lower variance of an SMT-metamodell at a given
@@ -99,16 +99,15 @@ def search_lowest_variance(sm, limits):
         :return: Function Value at the point x
         :rtype: Numpy array
         """
-    
+
         x = np.atleast_2d(x)
-    
+
         sm_val = sm.predict_values(x)
         sm_var = sm.predict_variances(x)
-    
-        nyvar = sm_val - 3 * np.sqrt(sm_var)
-    
-        return nyvar[0]
 
+        nyvar = sm_val - 3 * np.sqrt(sm_var)
+
+        return nyvar[0]
 
     start = np.empty(limits.shape[0], dtype=float)
     for dim in range(limits.shape[0]):

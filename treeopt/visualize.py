@@ -49,9 +49,9 @@ class Visualize:
         )
         XY = np.dstack(np.meshgrid(x_step, y_step)).reshape(-1, 2)
 
-        fun1Vars = self.opti_data.execute_problem(
-            XY.astype(np.float)
-        ).reshape(self.num_ele, self.num_ele)
+        fun1Vars = self.opti_data.execute_problem(XY.astype(np.float)).reshape(
+            self.num_ele, self.num_ele
+        )
         fun2Vars = self.opti_data.sm.predict_values(
             XY.astype(np.float)
         ).reshape(self.num_ele, self.num_ele)
@@ -342,7 +342,15 @@ class Visualize:
 
     def plot(self):
         """
-        Calls a individual plot function depending on the provided data
+        Calls a individual plot function depending on the provided data. If
+        it is possible to plot the data in one or two dimensions, it will be
+        plotted. If the visualization keyword is got set to "benchmarking"
+        the metamodel will be visualized alongside the original model. A
+        TreeOpt metamodel object (opt) can be visualized via the following
+        statement:
+            from treeopt.treeOpt import visualize
+            vis = visualize.Visualize(opt)
+            vis.plot()
         :return: Nothing
         :rtype: None
         """
@@ -352,11 +360,15 @@ class Visualize:
             or self.opti_data.vis_keyword == "Benchmarking"
         ):
             if self.opti_data.x.shape[1] == 1:
-                raise NotImplementedError("This function is not implemented at the moment")
+                raise NotImplementedError(
+                    "This function is not implemented at the moment"
+                )
             elif self.opti_data.x.shape[1] == 2:
                 self.plot_benchmark_2vars()
             else:
-                raise NotImplementedError("This function is not implemented at the moment")
+                raise NotImplementedError(
+                    "This function is not implemented at the moment"
+                )
         elif self.opti_data.vis_keyword == "extern":
             if self.opti_data.x.shape[1] == 1:
                 self.plot_metamodell_1vars()

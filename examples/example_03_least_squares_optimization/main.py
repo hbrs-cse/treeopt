@@ -83,8 +83,7 @@ print(res.x)
 
 found_parabola = parabola(res.x, x_data)
 
-# plt.plot(x_data, goal_parabola)
-# plt.plot(x_data, found_parabola)
+
 plt.plot(x_data, goal_parabola-found_parabola)
 plt.plot(x_data, (goal_parabola-found_parabola)**2)
 plt.grid()
