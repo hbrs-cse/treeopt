@@ -1,6 +1,5 @@
 # Safed Datapoints in tests
-tests/treeOptData/
-treeopt/treeOptData/
+treeOptData/
 examples/*.csv
 
 # Byte-compiled / optimized / DLL files
