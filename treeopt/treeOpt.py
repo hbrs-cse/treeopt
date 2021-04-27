@@ -228,17 +228,9 @@ class adaptive_metamodell:
         :rtype: None
         """
 
-        # Path(os.getcwd() + os.sep + "treeOptData").mkdir(parents=True, exist_ok=True)
-        # path = os.path.join(os.getcwd() + os.sep + "treeOptData", filename + ".csv")
-        # np.savetxt(path, npArray, delimiter=",")
-
-        import time
-
         Path(filepath).mkdir(parents=True, exist_ok=True)
         path = os.path.join(filepath, filename + ".csv")
         np.savetxt(path, Data, delimiter=",")
-
-        time.sleep(2)
 
     def set_filepath(self, filepath):
         self.filepath = filepath
@@ -257,7 +249,7 @@ class adaptive_metamodell:
         """
 
         path = os.path.join(
-            os.getcwd() + +os.sep + "treeOptData", filename + ".csv"
+            os.path.join(os.getcwd(), "teeOptData", filename + ".csv")
         )
         array = np.loadtxt(path, delimiter=",")
         return array
@@ -366,7 +358,7 @@ class adaptive_metamodell:
         Sets the Method that is used to approximate the system responce in the
         design space. In treeopt the following methods are implemented:
             -metamodel.rbf (radial basis functions) (default)
-            -metamodel.krg (kriging) 
+            -metamodel.krg (kriging)
             -metamodel.idw (inverse distance weigthing)
         :param method: one of the metamodelling functions
         :type method: python function

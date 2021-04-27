@@ -19,7 +19,7 @@ def latin_hypercube(limits, ndoe):
 
 def full_factorial(limits, ndoe):
     """
-    Function to define the experiment by using full factorial grid. If 
+    Function to define the experiment by using full factorial grid. If
     :param limits: numpy array representing the limit of the desingnspace
     :type limits: Numpy array
     :param ndoe: Number of points to be sampled in the designspace
