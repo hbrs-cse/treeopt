@@ -322,9 +322,8 @@ class Visualize:
                 self.num_ele,
             )
 
-        XY = np.dstack(np.meshgrid(x_step))
-
-        #fun1Vars = self.opti_data.sm.predict_values(XY.astype(np.float))
+        # XY = np.dstack(np.meshgrid(x_step))
+        # fun1Vars = self.opti_data.sm.predict_values(XY.astype(np.float))
 
         images = []
         for i in range(x_data.shape[1]):
