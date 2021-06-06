@@ -7,6 +7,7 @@ def rotated_hyper_ellipsoid_function(x):
     The Rotated Hyper-Ellipsoid function is continuous, convex and unimodal.
     It is an extension of the Axis Parallel Hyper-Ellipsoid function,
     also referred to as the Sum Squares function.
+
     :param x: N-Dimensional Vector rowvector (a column of rows can be passed)
     :type x: Numpy array
     :return: Function values of x

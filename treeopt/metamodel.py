@@ -3,13 +3,14 @@ import smt.surrogate_models as smt
 
 def rbf(xt, yt):
     """
-    Function, that trains a metamodell based on the radial basis function
+    Function, that trains a metamodel based on the radial basis function
     algorithm
-    :param xt: Array of points in which the system responce is known
+
+    :param xt: Array of points in which the system response is known
     :type xt: Numpy array
-    :param yt: Array contining the system responce
+    :param yt: Array containing the system response
     :type yt: Numpy array
-    :return: python object containing the trained metamodell
+    :return: python object containing the trained metamodel
     :rtype: Smt-object
     """
 
@@ -22,13 +23,14 @@ def rbf(xt, yt):
 
 def krg(xt, yt):
     """
-    Function, that trains a metamodell based on the kriging algorithm
-    :param xt: Array of points in which the system responce is known
+    Function, that trains a metamodel based on the kriging algorithm
+
+    :param xt: Array of points in which the system response is known
     :type xt: Numpy array
-    :param yt: Array contining the system responce
+    :param yt: Array containing the system response
     :type yt: Numpy array
-    :return: python object containing the trained metamodell
-    :rtype: Smt-object
+    :return: python object containing the trained metamodel
+    :rtype: smt-object
     """
 
     sm = smt.KRG(theta0=[1e-2])
@@ -40,13 +42,14 @@ def krg(xt, yt):
 
 def idw(xt, yt):
     """
-    Function, that trains a metamodell based on the inverse distance weighting
+    Function, that trains a metamodel based on the inverse distance weighting
     algorithm
-    :param xt: Array of points in which the system responce is known
+
+    :param xt: Array of points in which the system response is known
     :type xt: Numpy array
-    :param yt: Array contining the system responce
+    :param yt: Array containing the system response
     :type yt: Numpy array
-    :return: python object containing the trained metamodell
+    :return: python object containing the trained metamodel
     :rtype: Smt-object
     """
 

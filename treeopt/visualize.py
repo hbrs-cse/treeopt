@@ -7,9 +7,10 @@ import numpy as np
 class Visualize:
     def __init__(self, optimizer):
         """
-        Initializes a visiualize Class
+        Initializes a visualize Class
+
         :param optimizer: Object of the TreeOpt Class containing all
-        information of the calculated metamodell
+        information of the calculated metamodel
         :type optimizer: TreeOpt Class Object
         :return: Nothing
         :rtype: None
@@ -22,7 +23,8 @@ class Visualize:
         """
         Sets the number of points which on which a metamodel is to be
         evaluated alongside each axis, in order to generate a plot
-        :param n: Number of Evaluations alongside each axis (default n=100)
+
+        param n: Number of Evaluations alongside each axis (default n=100)
         :type n: Integer
         :return: Nothing
         :rtype: None
@@ -32,7 +34,8 @@ class Visualize:
     def plot_benchmark_2vars(self):
         """
         Plots a benchmarking function on the right and the calculated
-        metamodell on the left Outputs a matplotlib graph
+        metamodel on the left Outputs a matplotlib graph
+
         :return: Nothing
         :rtype: None
         """
@@ -180,7 +183,7 @@ class Visualize:
 
     def plot_metamodell_1vars(self):
         """
-        Plots a metamodell with two one input variable and one output variable
+        Plots a metamodel with two one input variable and one output variable
         :return: Nothing
         :rtype: None
         """
@@ -208,7 +211,7 @@ class Visualize:
 
     def plot_metamodell_2vars(self):
         """
-        Plots a Metamodell with two input variables and one output variable
+        Plots a Metamodel with two input variables and one output variable
         :return: Nothing
         :rtype: None
         """
@@ -302,7 +305,8 @@ class Visualize:
 
     def plot_metamodell_nvars(self):
         """
-        Generates a Corner Plot of the diffenent axes of the metamodell
+        Generates a Corner Plot of the different axes of the metamodel
+
         :return: Nothing
         :rtype: None
         """
@@ -350,6 +354,7 @@ class Visualize:
             from treeopt.treeOpt import visualize
             vis = visualize.Visualize(opt)
             vis.plot()
+
         :return: Nothing
         :rtype: None
         """

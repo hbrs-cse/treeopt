@@ -20,7 +20,8 @@ class least_squares:
     def __init__(self):
         """
         Pre allocates variables with default values. These variables can be
-        changed in their coressponding "set"-Function
+        changed in their corresponding "set"-Function
+
         :return: Nothing
         :rtype: None
         """
@@ -40,9 +41,10 @@ class least_squares:
             function(x, *args, **kwargs), where x are the parameters
             which are to be optimized, *args are static Variables and **kwargs
             are keyword-Variables.
-        :param problem: A function that takes takes parameters and returnes the
-        system responce
-        :type problem: Python function
+
+        :param cost_function: A function that takes takes parameters and returns the
+        system response
+        :type cost_function: Python function
         :return: Nothing
         :rtype: None
         """
@@ -54,6 +56,7 @@ class least_squares:
         Sets additional Arguments, which are to be passed with each call of the
         problem function. Arguments have to be passed in the same order in
         which the they are declared in the problem definition
+
         :param args: Tuple containing the arguments
         :type args: Tuple
         :return: Nothing
@@ -65,7 +68,8 @@ class least_squares:
         """
         Sets additional Keyword Arguments, which are to be passed with each
         call of the problem function. Arguments have to be passed together with
-        their coressponding keyword.
+        their corresponding keyword.
+
         :param args: Tuple containing the keywords and the arguments
         :type args: Tuple
         :return: Nothing
@@ -77,7 +81,8 @@ class least_squares:
         """
         Sets a point in the design space, in which represents the starting
         point for the least squares optimization
-        :param point: Point in which the algorrithm is to start
+
+        :param point: Point in which the algorithm is to start
         :type point: Tuple
         :return: Nothing
         :rtype: None
@@ -89,6 +94,7 @@ class least_squares:
     def set_limits(self, limits):
         """
         Sets the search limits of each dimension of the design space
+
         :param limits: Array containing the highest and lowest limits for each
         dimension
         :type limits: Numpy-Array
@@ -102,6 +108,7 @@ class least_squares:
         """
         Sets the diff_step variable if a value other than the default is
         desired
+
         :param value: Diff_step value
         :type value: Float
         :return: Nothing
@@ -115,6 +122,7 @@ class least_squares:
         Sets the x_tol parameter (default x_tol = 1e-08). This parameter
         describes the Tolerance for termination by the change of the
         independent variables.
+
         :param value:
         :type: float
         :return: Nothing
@@ -126,6 +134,7 @@ class least_squares:
         """
         Sets the f_tol parameter (default f_tol = 1e-08). This parameter is the
         Tolerance for termination by the change of the cost function.
+
         :param value:
         :type: float
         :return: Nothing
@@ -137,6 +146,7 @@ class least_squares:
         """
         Sets a maximum number of function evaluations if a value other than the
         default is desired
+
         :param max_nfev: Maximum number of function evaluations
         :type max_nfev: Integer
         :return: Nothing
@@ -147,11 +157,12 @@ class least_squares:
 
     def optimize(self):
         """
-        Function that starts the previosly parameterized adaptive optimization
-        loop. It uses the prevously defined parameters, which are stored in as
-        class varaibles. The funktion differs between four configurations
+        Function that starts the previously parameterized adaptive optimization
+        loop. It uses the previously defined parameters, which are stored in as
+        class variables. The function differs between four configurations
         containing different parameterizations of the
         optimization_function_args and the optimization_function_kwargs
+
         :return: Object containing the Optimization result
         :rtype: Scipy-Optimize Object
         """
@@ -174,14 +185,15 @@ class least_squares:
 
 class adaptive_metamodell:
     """
-    Python class, that bundles all modules for nessesary for adaptive black box
+    Python class, that bundles all modules for necessary for adaptive black box
     metamodelling
     """
 
     def __init__(self):
         """
         Pre allocates variables with default values. These variables can be
-        changed in their coressponding "set"-Function
+        changed in their corresponding "set"-Function
+
         :return: Nothing
         :rtype: None
         """
@@ -197,6 +209,7 @@ class adaptive_metamodell:
     def append_x_data(self, xi):
         """
         Appends a datapoint xi to the design space
+
         :param xi: One point in the design space
         :type xi: Numpy array
         :return: Nothing
@@ -208,7 +221,8 @@ class adaptive_metamodell:
     def append_y_data(self, yi):
         """
         Appends a result yi to the result vector y
-        :param yi: The result of one simultaion
+
+        :param yi: The result of one simulation
         :type yi: Numpy array
         :return: nothing
         :rtype: none
@@ -219,7 +233,8 @@ class adaptive_metamodell:
     def write_data(self, Data, filepath, filename):
         """
         Function that writes a numpy Array into a file in the threeOptData
-        direcory
+        directory
+
         :param npArray: Array to be written onto the file
         :type npArray: Numpy array
         :param filename: Name of the file
@@ -242,6 +257,7 @@ class adaptive_metamodell:
         """
         Function that reads a file in the treeOptData directory and creates a
         numpy array with this data
+
         :param filename: Name of the file to be read
         :type filename: String
         :return: Array containing the information of the file
@@ -258,6 +274,7 @@ class adaptive_metamodell:
     def set_name(self, name):
         """
         Sets a Variable with the name of the Optimization Problem
+
         :param name: the Name of the Optimization problem
         :type name: String
         :return: Nothing
@@ -274,6 +291,7 @@ class adaptive_metamodell:
             -sampling.latin_hypercube (default)
             -sampling.full_factorial
             -sampling.random
+
         :param method: Python function which returns the the sampled points
         :type method: Python function
         :return: Nothing
@@ -287,6 +305,7 @@ class adaptive_metamodell:
         """
         Sets the Number of Sampling Points to be used in the initial Sampling
         of the design space
+
         :param numDOE: Number of Sampling Points
         :type numDOE: Integer
         :return: Nothing
@@ -299,6 +318,7 @@ class adaptive_metamodell:
     def set_limits(self, limits):
         """
         Sets the search limits of each dimension of the design space
+
         :param limits: Array containing the highest and lowest limits for each
         dimension
         :type limits: Numpy-Array
@@ -315,9 +335,10 @@ class adaptive_metamodell:
         to be passed in the following way:
             function(x, arg1, arg2, ..., argN), where x are the parameters
             which are to be optimized and arg1 to argN are static Variables.
-        :param problem: A function that takes takes parameters and returnes the
-        system responce
-        :type problem: Python function
+
+        :param cost_function: A function that takes takes parameters and returns the
+        system response
+        :type cost_function: Python function
         :return: Nothing
         :rtype: None
 
@@ -329,6 +350,7 @@ class adaptive_metamodell:
         Sets additional Arguments, which are to be passed with each call of the
         problem function. Arguments have to be passed in the same order in
         which the they are declared in the problem definition
+
         :param args: Tuple containing the arguments
         :type args: Tuple
         :return: Nothing
@@ -340,9 +362,10 @@ class adaptive_metamodell:
 
     def set_vis_keyword(self, keyword):
         """
-        Adds a keyword to the Optimization Algorithm. When a Metamodell is to
+        Adds a keyword to the Optimization Algorithm. When a Metamodel is to
         be visualized, the value of the keyword is checked and depending on the
         keyword a different plot is generated
+
         :param keyword: Keyword describing the problem-type (default "extern",
         other alternative "benchmark")
         :type keyword: String
@@ -355,12 +378,13 @@ class adaptive_metamodell:
 
     def set_sm_method(self, method):
         """
-        Sets the Method that is used to approximate the system responce in the
+        Sets the Method that is used to approximate the system response in the
         design space. In treeopt the following methods are implemented:
             -metamodel.rbf (radial basis functions) (default)
             -metamodel.krg (kriging)
-            -metamodel.idw (inverse distance weigthing)
-        :param method: one of the metamodelling functions
+            -metamodel.idw (inverse distance weighing)
+
+        :param method: one of the metamodel functions
         :type method: python function
         :return: Nothing
         :rtype: None
@@ -374,6 +398,7 @@ class adaptive_metamodell:
         Executes the problem which is to be analyzed. If static Variables where
         defined as additional arguments for the problem, these arguments are
         added to the function call.
+
         :param x: Point in the design space
         :type x: Numpy-array
         :return: System responce
@@ -385,8 +410,9 @@ class adaptive_metamodell:
 
     def optimize(self):
         """
-        Function that starts the previosly parameterized adaptive optimization
+        Function that starts the previously parameterized adaptive optimization
         loop
+
         :return: Nothing
         :rtype: None
 
