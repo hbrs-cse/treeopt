@@ -15,6 +15,7 @@ A python module for simulation-based optimization
    api
    development
    requirements
+   modules
 
 
 
