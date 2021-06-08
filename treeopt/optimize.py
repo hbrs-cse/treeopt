@@ -10,7 +10,7 @@ def predict_value(x, sm):
     :param sm: Python object representing the benchmarking function
     :type sm: SMT-Object
     :param x: Numpy array representing a point on which the lowest variance
-    function is to be evaluated
+        function is to be evaluated
     :type x: Numpy array
     :return: Function Value at the point x
     :rtype: Numpy array
@@ -26,14 +26,14 @@ def search_higest_uncertainty(sm, limits):
     """
     Searches in the response surface of a given metamodel for the point in the
     design-space with the highest uncertainty
+
     :param sm: A metamodel object from the smt-toolkit. Must be able to
-    calculate variances
+        calculate variances
     :type sm: Smt-object
     :param limits: Limits of the design-space
     :type limits: Numpy-array
     :return: Point in the design space with the highest uncertainty
     :rtype: Numpy-array
-
     """
 
     def get_largest_uncertainty(x, sm):
@@ -44,7 +44,7 @@ def search_higest_uncertainty(sm, limits):
         :param sm: Python object representing the benchmarking function
         :type sm: SMT-Object
         :param x: Numpy array representing a point on which the lowest variance
-        function is to be evaluated
+            function is to be evaluated
         :type x: Numpy array :return: Function Value at the point x
         :rtype: Numpy array
         """
@@ -80,13 +80,12 @@ def search_lowest_variance(sm, limits):
     the design-space with the lowest variance
 
     :param sm: A metamodel object from the smt-toolkit. Must be able to
-    calculate variances
+        calculate variances
     :type sm: Smt-object
     :param limits: Limits of the design-space
     :type limits: Numpy-array
     :return: Point in the design space with the highest uncertainty
     :rtype: Numpy-array
-
     """
 
     def get_lowest_variance(x, sm):
@@ -97,7 +96,7 @@ def search_lowest_variance(sm, limits):
         :param sm: Python object representing the benchmarking function
         :type sm: SMT-Object
         :param x: Numpy array representing a point on which the lowest variance
-        function is to be evaluated
+            function is to be evaluated
         :type x: Numpy array
         :return: Function Value at the point x
         :rtype: Numpy array

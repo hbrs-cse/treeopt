@@ -35,18 +35,14 @@ class least_squares:
         self.optimization_function_kwargs = {}
 
     def set_cost_function(self, cost_function):
-        """
-        Sets the problem of which an optimization is to be done. Arguments have
-        to be passed in the following way:
-            function(x, *args, **kwargs), where x are the parameters
-            which are to be optimized, *args are static Variables and **kwargs
-            are keyword-Variables.
+        """Sets the problem of which an optimization is to be done. Arguments
+        have to be passed in the following way:  function(x, args,
+        kwargs), where x are the parameters which are to be optimized,
+        args are static Variables and kwargs are keyword-Variables.
 
-        :param cost_function: A function that takes takes parameters and returns the
-        system response
+        :param cost_function: A function that takes takes parameters and
+            returns the system response
         :type cost_function: Python function
-        :return: Nothing
-        :rtype: None
         """
 
         self.optimization_function = cost_function
@@ -59,8 +55,6 @@ class least_squares:
 
         :param args: Tuple containing the arguments
         :type args: Tuple
-        :return: Nothing
-        :rtype: None
         """
         self.optimization_function_args = args
 
@@ -72,8 +66,6 @@ class least_squares:
 
         :param args: Tuple containing the keywords and the arguments
         :type args: Tuple
-        :return: Nothing
-        :rtype: None
         """
         self.optimization_function_kwargs = args
 
@@ -84,9 +76,6 @@ class least_squares:
 
         :param point: Point in which the algorithm is to start
         :type point: Tuple
-        :return: Nothing
-        :rtype: None
-
         """
 
         self.start_point = point
@@ -96,11 +85,8 @@ class least_squares:
         Sets the search limits of each dimension of the design space
 
         :param limits: Array containing the highest and lowest limits for each
-        dimension
+            dimension
         :type limits: Numpy-Array
-        :return: Nothing
-        :rtype: None
-
         """
         self.limits = limits
 
@@ -111,8 +97,6 @@ class least_squares:
 
         :param value: Diff_step value
         :type value: Float
-        :return: Nothing
-        :rtype: None
         """
 
         self.diff_step = value
@@ -125,8 +109,6 @@ class least_squares:
 
         :param value:
         :type: float
-        :return: Nothing
-        :rtype: None
         """
         self.x_tol = value
 
@@ -137,8 +119,6 @@ class least_squares:
 
         :param value:
         :type: float
-        :return: Nothing
-        :rtype: None
         """
         self.f_tol = value
 
@@ -149,8 +129,6 @@ class least_squares:
 
         :param max_nfev: Maximum number of function evaluations
         :type max_nfev: Integer
-        :return: Nothing
-        :rtype: None
         """
 
         self.max_nfev = max_nfev
@@ -288,9 +266,9 @@ class adaptive_metamodell:
         """
         Sets the Sampling Method inteddet to be used by the individual
         Optimization Problem. TreeOpt provides the following methods:
-            -sampling.latin_hypercube (default)
-            -sampling.full_factorial
-            -sampling.random
+        * sampling.latin_hypercube (default)
+        * sampling.full_factorial
+        * sampling.random
 
         :param method: Python function which returns the the sampled points
         :type method: Python function
@@ -320,7 +298,7 @@ class adaptive_metamodell:
         Sets the search limits of each dimension of the design space
 
         :param limits: Array containing the highest and lowest limits for each
-        dimension
+            dimension
         :type limits: Numpy-Array
         :return: Nothing
         :rtype: None
@@ -331,17 +309,14 @@ class adaptive_metamodell:
 
     def set_cost_function(self, cost_function):
         """
-        Sets the problem of which an optimization is to be done. Arguments have
-        to be passed in the following way:
-            function(x, arg1, arg2, ..., argN), where x are the parameters
-            which are to be optimized and arg1 to argN are static Variables.
+        Sets the problem of which an optimization is to be done. Arguments
+        have to be passed in the following way:  function(x, arg1, arg2,
+        ..., argN), where x are the parameters which are to be optimized and
+        arg1 to argN are static Variables.
 
-        :param cost_function: A function that takes takes parameters and returns the
-        system response
+        :param cost_function: A function that takes takes parameters and
+            returns the system response
         :type cost_function: Python function
-        :return: Nothing
-        :rtype: None
-
         """
         self.problem = cost_function
 
@@ -367,11 +342,8 @@ class adaptive_metamodell:
         keyword a different plot is generated
 
         :param keyword: Keyword describing the problem-type (default "extern",
-        other alternative "benchmark")
+            other alternative "benchmark")
         :type keyword: String
-        :return: Nothing
-        :rtype: None
-
         """
 
         self.vis_keyword = keyword
@@ -380,9 +352,9 @@ class adaptive_metamodell:
         """
         Sets the Method that is used to approximate the system response in the
         design space. In treeopt the following methods are implemented:
-            -metamodel.rbf (radial basis functions) (default)
-            -metamodel.krg (kriging)
-            -metamodel.idw (inverse distance weighing)
+        * metamodel.rbf (radial basis functions) (default)
+        * metamodel.krg (kriging)
+        * metamodel.idw (inverse distance weighing)
 
         :param method: one of the metamodel functions
         :type method: python function
