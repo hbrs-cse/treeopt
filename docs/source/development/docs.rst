@@ -47,6 +47,6 @@ Once everything is in place, you can build the documentation using the
 :ref:`make docs <make_docs>` the target defined in the project's
 :ref:`Makefile <make>`.
 
-.. code-block::
+.. code-block:: bash
 
     make docs

@@ -5,11 +5,12 @@ import time
 
 def predict_value(x, sm):
     """
-    Returns the approximation of a function value in of the matamodell
+    Returns the approximation of a function value in of the metamodel
+
     :param sm: Python object representing the benchmarking function
     :type sm: SMT-Object
-    :param x: Numpy array representing a point on which the lowest varinace
-    function is to be evaluated
+    :param x: Numpy array representing a point on which the lowest variance
+        function is to be evaluated
     :type x: Numpy array
     :return: Function Value at the point x
     :rtype: Numpy array
@@ -23,28 +24,28 @@ def predict_value(x, sm):
 
 def search_higest_uncertainty(sm, limits):
     """
-    Searches in the responce surface of a given metamodell for the point in the
-    designspace with the highest uncertaintiy
-    :param sm: A metamodell object from the smt-toolkit. Must be able to
-    calculate variances
+    Searches in the response surface of a given metamodel for the point in the
+    design-space with the highest uncertainty
+
+    :param sm: A metamodel object from the smt-toolkit. Must be able to
+        calculate variances
     :type sm: Smt-object
-    :param limits: Limits of the designspace
+    :param limits: Limits of the design-space
     :type limits: Numpy-array
     :return: Point in the design space with the highest uncertainty
     :rtype: Numpy-array
-
     """
 
     def get_largest_uncertainty(x, sm):
         """
-        Function to calculate and return a the function value of the uncertainty at
-        a given point x
+        Function to calculate and return a the function value of the
+        uncertainty at a given point x
+
         :param sm: Python object representing the benchmarking function
         :type sm: SMT-Object
-        :param x: Numpy array representing a point on which the lowest varinace
-        function is to be evaluated
-        :type x: Numpy array
-        :return: Function Value at the point x
+        :param x: Numpy array representing a point on which the lowest variance
+            function is to be evaluated
+        :type x: Numpy array :return: Function Value at the point x
         :rtype: Numpy array
         """
 
@@ -75,26 +76,27 @@ def search_higest_uncertainty(sm, limits):
 
 def search_lowest_variance(sm, limits):
     """
-    Searches in the responce surface of a given metamodell for the point in
-    the designspace with the lowest variance
-    :param sm: A metamodell object from the smt-toolkit. Must be able to
-    calculate variances
+    Searches in the response surface of a given metamodel for the point in
+    the design-space with the lowest variance
+
+    :param sm: A metamodel object from the smt-toolkit. Must be able to
+        calculate variances
     :type sm: Smt-object
-    :param limits: Limits of the designspace
+    :param limits: Limits of the design-space
     :type limits: Numpy-array
     :return: Point in the design space with the highest uncertainty
     :rtype: Numpy-array
-
     """
 
     def get_lowest_variance(x, sm):
         """
-        Function to calculate the lower variance of an SMT-metamodell at a given
+        Function to calculate the lower variance of an SMT-metamodel at a given
         point x
+
         :param sm: Python object representing the benchmarking function
         :type sm: SMT-Object
-        :param x: Numpy array representing a point on which the lowest varinace
-        function is to be evaluated
+        :param x: Numpy array representing a point on which the lowest variance
+            function is to be evaluated
         :type x: Numpy array
         :return: Function Value at the point x
         :rtype: Numpy array
@@ -128,15 +130,13 @@ def search_lowest_variance(sm, limits):
 
 def find_minimum(sm, limits):
     """
-    Searches in the responce surface of a given metamodell for the Point with
-    the lovest valued system responce
-    :param sm: DESCRIPTION
-    :type sm: TYPE
-    :param limits: DESCRIPTION
-    :type limits: TYPE
-    :return: DESCRIPTION
-    :rtype: TYPE
+    Searches in the response surface of a given metamodel for the Point with
+    the lowest valued system response
 
+    :param sm: Python object representing the benchmarking function
+    :type sm: SMT-Object
+    :param limits: the limits of the design-space
+    :type limits: numpy-array
     """
 
     start = np.empty(limits.shape[0], dtype=float)

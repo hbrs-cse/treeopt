@@ -54,6 +54,10 @@ MOCK_MODULES = [
     "scipy.special",
     "math",
     "pandas",
+    "smt",
+    "scipy.optimize",
+    "smt.surrogate_models",
+    "smt.sampling_methods"
 ]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 

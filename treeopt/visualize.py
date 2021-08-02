@@ -7,12 +7,11 @@ import numpy as np
 class Visualize:
     def __init__(self, optimizer):
         """
-        Initializes a visiualize Class
+        Initializes a visualize Class
+
         :param optimizer: Object of the TreeOpt Class containing all
-        information of the calculated metamodell
+            information of the calculated metamodel
         :type optimizer: TreeOpt Class Object
-        :return: Nothing
-        :rtype: None
         """
 
         self.opti_data = optimizer
@@ -22,7 +21,8 @@ class Visualize:
         """
         Sets the number of points which on which a metamodel is to be
         evaluated alongside each axis, in order to generate a plot
-        :param n: Number of Evaluations alongside each axis (default n=100)
+
+        param n: Number of Evaluations alongside each axis (default n=100)
         :type n: Integer
         :return: Nothing
         :rtype: None
@@ -32,9 +32,7 @@ class Visualize:
     def plot_benchmark_2vars(self):
         """
         Plots a benchmarking function on the right and the calculated
-        metamodell on the left Outputs a matplotlib graph
-        :return: Nothing
-        :rtype: None
+        metamodel on the left Outputs a matplotlib graph
         """
 
         x_step = np.linspace(
@@ -180,9 +178,7 @@ class Visualize:
 
     def plot_metamodell_1vars(self):
         """
-        Plots a metamodell with two one input variable and one output variable
-        :return: Nothing
-        :rtype: None
+        Plots a metamodel with two one input variable and one output variable
         """
 
         x_step = np.linspace(
@@ -208,9 +204,7 @@ class Visualize:
 
     def plot_metamodell_2vars(self):
         """
-        Plots a Metamodell with two input variables and one output variable
-        :return: Nothing
-        :rtype: None
+        Plots a Metamodel with two input variables and one output variable
         """
 
         x_step = np.linspace(
@@ -302,9 +296,7 @@ class Visualize:
 
     def plot_metamodell_nvars(self):
         """
-        Generates a Corner Plot of the diffenent axes of the metamodell
-        :return: Nothing
-        :rtype: None
+        Generates a Corner Plot of the different axes of the metamodel
         """
 
         dim = self.opti_data.x.shape[1]
@@ -346,12 +338,8 @@ class Visualize:
         plotted. If the visualization keyword is got set to "benchmarking"
         the metamodel will be visualized alongside the original model. A
         TreeOpt metamodel object (opt) can be visualized via the following
-        statement:
-            from treeopt.treeOpt import visualize
-            vis = visualize.Visualize(opt)
-            vis.plot()
-        :return: Nothing
-        :rtype: None
+        statement:  from treeopt.treeOpt import visualize; vis =
+        visualize.Visualize(opt); vis.plot()
         """
 
         if (
