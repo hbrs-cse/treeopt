@@ -22,7 +22,7 @@ class Visualize:
         Sets the number of points which on which a metamodel is to be
         evaluated alongside each axis, in order to generate a plot
 
-        param n: Number of Evaluations alongside each axis (default n=100)
+        :param n: Number of Evaluations alongside each axis (default n=100)
         :type n: Integer
         :return: Nothing
         :rtype: None
